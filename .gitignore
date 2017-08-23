@@ -42,16 +42,4 @@ yarn-error.log
 # System Files
 .DS_Store
 Thumbs.db
-.angular-cli.json
-.editorconfig
-.gitignore
-README.md
-e2e/
-karma.conf.js
-package.json
-protractor.conf.js
-semantic.json
-semantic/
-src/
-tsconfig.json
-tslint.json
+
