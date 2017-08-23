@@ -1,0 +1,51 @@
+@import "./assets/vendor/semantic.min.css";
+@import "./assets/vendor/components/video.min.css";
+
+.mainmenu{
+  background: #4257b2 !important;;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/*.ui.menu .item*/
+
+.ui.menu .mainmenu{
+  border: none !important;
+}
+
+.headermenufont{
+  font-family: hurme_no2-webfont,-apple-system,BlinkMacSystemFont,sans-serif !important;
+  font-size: 100% !important;
+  color: #ffffff !important;
+}
+.ui.menu .headermenufont .item:before {
+  border: none !important;
+  background: none !important;
+  position: initial;
+}
+
+.border-left-none{
+  border-left: none !important;
+}
+
+.ui.menu .border-left-none .item:before {
+  background: none !important;
+}
+
+.ui.menu .item:before .border-left-none{
+  background: none !important;
+}
+
+.ui.menu .item .firstmenu-border-left-none{
+  border-left: none !important;
+  position: relative !important;
+}
+
+.ui.menu:not(.vertical) .item{
+  display: -webkit-box !important;
+}
+
+.videoyoutube{
+  /*width: -webkit-fill-available;*/
+  /*height: -webkit-fill-available;*/
+}

@@ -1,0 +1,65 @@
+
+  <div class="ui menu header mainmenu">
+    <!--<div class="ui container">-->
+
+      <div class="ui attached stackable right menu mainmenu headermenufont">
+
+        <div class="ui container">
+
+          <div class="item border-left-none">
+            <a [routerLink]="['/mainpage']" aria-label="Main page">
+              <img  src="/assets/images/logo_neuro.png">
+            </a>
+            <div class="header item">
+              <a [routerLink]="['/mainpage']" aria-label="Main page" class="headermenufont">
+                <h1>Центр нейрохирургии</h1>
+              </a>
+            </div>
+          </div>
+
+          <div class="ui simple dropdown item headermenufont border-left-none">
+            <i class="home icon firstmenu-border-left-none"></i>О нас
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" [routerLink]="['/aboutclinic']"><i class="edit icon"></i>О центре</a>
+              <a class="item" [routerLink]="['/teamclinic']"><i class="users icon"></i> Коллектив</a>
+              <a class="item" [routerLink]="['/feedbackclients']"><i class="thumbs outline up icon"></i> Отзывы клиентов</a>
+              <a class="item" [routerLink]="['/pressaaboutus']"><i class="globe icon"></i> СМИ</a>
+            </div>
+          </div>
+
+          <div class="ui simple dropdown item headermenufont border-left-none">
+            <i class="handicap icon icon firstmenu-border-left-none"></i> Пациенту
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item"[routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация</a>
+              <a class="item"[routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием</a>
+              <a class="item"[routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперионная подгоготовка </a>
+            </div>
+          </div>
+
+          <a class="item headermenufont" [routerLink]="['/materials']">
+            <i class="file video outline icon"></i> Статьи
+          </a>
+
+          <a class="item headermenufont" [routerLink]="['/contacts']">
+            <i class="marker icon"></i> Контакты
+          </a>
+
+        </div>
+
+        <div class="item right menu headermenufont">
+          <button [routerLink]="['/loginuser']" class="ui basic button">
+            <a class="headermenufont"> <i class="add user icon" aria-hidden="true"></i>
+            Вход
+            </a>
+          </button>
+        </div>
+
+      </div>
+
+    <!--</div>-->
+
+  </div>
+
+
