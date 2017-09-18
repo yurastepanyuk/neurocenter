@@ -19,9 +19,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "assets/vendor/semantic.min.css",
+        "assets/vendor/components/accordion.css",
+        "assets/vendor/components/video.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/vendor/semantic.min.js",
+        "assets/vendor/components/accordion.js",
+        "assets/vendor/components/video.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,4 +1,64 @@
 
+<div class="ui raised very padded text container segment">
+
+  <div (click)="showNewTopic()" class="ui button">
+    <i class="sticky note outline icon"></i>
+    Новая публикация
+  </div>
+
+  <div *ngIf="viewnewnopic" class="ui raised segment">
+    <h2 class="ui header">Новая публикация</h2>
+    <form [formGroup]="myForm"
+          (ngSubmit)="onSubmit(myForm.value)"
+          class="ui form"
+          [class.error]="!myForm.valid && myForm.touched">
+      <div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">
+        <label for="headerTopic">Заголовок</label>
+        <input type="text"
+               id="headerTopic"
+               placeholder="Заголовок"
+               name="заголовок"
+               [formControl]="myForm.get('headerTopic')"ngModel>
+      </div>
+      <div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">
+        <label for="context">Описание</label>
+        <input type="text"
+               id="context"
+               placeholder="Описание"
+               name="описание"
+               [formControl]="myForm.get('context')" ngModel>
+      </div>
+
+      <div class="field" [class.error]="!myForm.get('typecontent').valid && myForm.get('typecontent').touched">
+      <div class="ui sub header">Тип контента</div>
+      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.get('typecontent')" ngModel>
+        <option value=""></option>
+        <option value="video">Видео</option>
+        <option value="image">Изображение</option>
+        <option value="file">Файл</option>
+      </select>
+      </div>
+
+      <div class="field" [class.error]="!myForm.get('videoContent').valid && myForm.get('videoContent').touched">
+        <label for="videoContent">ID</label>
+        <input type="text"
+               id="videoContent"
+               placeholder="ID фото/видео/файла из Google Drive"
+               name="idvideo"
+               [formControl]="myForm.get('videoContent')" ngModel>
+      </div>
+
+      <div *ngIf="!myForm.valid"
+           class="ui error message">Заполните все поля</div>
+
+      <button type="submit" class="ui button">Опубликовать</button>
+      <button class="ui right floated button" (click)="closeForm()">
+        Закрыть
+      </button>
+    </form>
+  </div>
+
+</div>
 
 <div class="ui raised very padded text container segment">
   <h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)</h2>
@@ -23,16 +83,20 @@
 <div class="ui raised very padded text container segment">
   <h2 class="ui header">Интервью директора нейрохирургического центра - Сергея Борзенкова (Google Drive)</h2>
 
-  <img class="ui centered medium image" src="https://lh3.googleusercontent.com/tKiHhDogaJyV590wFmf9oTiSw_pyDM9zocLe_sUaMMhqzh8_8HIki5pFOuH2Rp0NalgoF2gg=w1366-h683">
+  <!--How to host Images and JavaScript/CSS files on Google Drive-->
+  <!--LINK GENERATOR from share link  http://www.hugestreet.info/p/direct-download-link-generator.html-->
+  <img class="ui centered medium image" src="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icNXo3bmpVX1NFVDg">
 
   <button class="ui right basic button">
-    <a href="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0" >  <i class="download icon" aria-hidden="true"></i>
-      Скачать (from Google Drive)
-    </a>
-
     <!--Линк для скачивания файлов - нужно только ID поменять
     https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0-->
+    <a href="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icUUl2QnpyTHZCMk0" >  <i class="download icon" aria-hidden="true"></i>
+      Скачать (from Google Drive)
+    </a>
   </button>
+
+  <!--Получить список файлов из расшареного каталога Google Drive-->
+  <iframe src="https://drive.google.com/embeddedfolderview?id=0B0CqXtLdt9icbk90SVpUM2t6TFU#list" style="width:100%; height:600px; border:0;"></iframe>
 
 </div>
 
@@ -50,13 +114,9 @@
   <h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(rom Google Drive)</h2>
 
   <div class="ui embed">
-    <iframe class="videoyoutube" src="" allowfullscreen></iframe>
+    <!--Менять нужно только ИД и видео будет запускаться-->
+    <iframe width="100%" height="100%" src="https://drive.google.com/file/d/0B0CqXtLdt9icU3diSHgxNmF0NU0/preview"></iframe>
   </div>
 
 </div>
 
-
-<!--https://drive.google.com/open?id=0B0CqXtLdt9icNXo3bmpVX1NFVDg-->
-<!--https://lh3.googleusercontent.com/tKiHhDogaJyV590wFmf9oTiSw_pyDM9zocLe_sUaMMhqzh8_8HIki5pFOuH2Rp0NalgoF2gg=w1366-h683-->
-
-<!--https://www.youtube.com/embed/0B0CqXtLdt9icbmlfal9CNmt2QW8-->
