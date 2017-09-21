@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "sample": "node src/server/data/seed-db.js"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +22,10 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "bcrypt": "^1.0.3",
     "core-js": "^2.4.1",
+    "dotenv": "^4.0.0",
+    "mongodb": "^2.2.31",
     "rxjs": "^5.4.2",
     "semantic-ui": "^2.2.13",
     "zone.js": "^0.8.14"

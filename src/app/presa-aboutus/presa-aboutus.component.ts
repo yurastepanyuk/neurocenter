@@ -4,11 +4,15 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import {PressaServiceService} from './pressa-service.service';
+import { Response} from '@angular/http';
+
 
 @Component({
   selector: 'app-presa-aboutus',
   templateUrl: './presa-aboutus.component.html',
   styleUrls: ['./presa-aboutus.component.css']
+  // providers: [PressaServiceService]
 })
 export class PresaAboutusComponent implements OnInit {
 
@@ -16,7 +20,9 @@ export class PresaAboutusComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  data: any;
+
+  constructor(fb: FormBuilder, private sp: PressaServiceService) {
     this.viewnewnopic = false;
     this.myForm = fb.group({
       'headerTopic':  ['', Validators.required],
@@ -33,6 +39,9 @@ export class PresaAboutusComponent implements OnInit {
     if (!this.viewnewnopic) {
       this.viewnewnopic = true;
     }
+
+    this.sp.getData().subscribe((data: Response) => console.log(<any> data.json()));
+
   }
 
   onSubmit(form: any): void {

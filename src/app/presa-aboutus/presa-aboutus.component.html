@@ -33,9 +33,10 @@
       <div class="ui sub header">Тип контента</div>
       <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.get('typecontent')" ngModel>
         <option value=""></option>
-        <option value="video">Видео</option>
-        <option value="image">Изображение</option>
-        <option value="file">Файл</option>
+        <option value="video">Video from YouTube</option>
+        <option value="file">Video from Google Drive</option>
+        <option value="image">Image from Google Drive</option>
+        <option value="file">File from Google Drive</option>
       </select>
       </div>
 
@@ -115,7 +116,7 @@
 
   <div class="ui embed">
     <!--Менять нужно только ИД и видео будет запускаться-->
-    <iframe width="100%" height="100%" src="https://drive.google.com/file/d/0B0CqXtLdt9icU3diSHgxNmF0NU0/preview"></iframe>
+    <iframe width="100%" height="100%" src='https://drive.google.com/file/d/0B0CqXtLdt9icU3diSHgxNmF0NU0/preview'></iframe>
   </div>
 
 </div>

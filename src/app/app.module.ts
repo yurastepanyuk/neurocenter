@@ -18,6 +18,7 @@ import { MaterialsComponent } from './materials/materials.component';
 import { UserComponent } from './user/user.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { OfflineConsultationComponent } from './offline-consultation/offline-consultation.component';
+import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
 
 @NgModule({
   declarations: [
@@ -41,9 +42,11 @@ import { OfflineConsultationComponent } from './offline-consultation/offline-con
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    PressaModuleModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
