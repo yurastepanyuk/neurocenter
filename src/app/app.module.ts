@@ -19,6 +19,7 @@ import { UserComponent } from './user/user.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { OfflineConsultationComponent } from './offline-consultation/offline-consultation.component';
 import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
+import { PressaCurObjectComponent } from './presa-aboutus/pressa-cur-object/pressa-cur-object.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.mo
     MaterialsComponent,
     UserComponent,
     LoginUserComponent,
-    OfflineConsultationComponent
+    OfflineConsultationComponent,
+    PressaCurObjectComponent
   ],
   imports: [
     BrowserModule,

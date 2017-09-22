@@ -5,8 +5,9 @@ import {
   Validators
 } from '@angular/forms';
 import {PressaServiceService} from './pressa-service.service';
-import { Response} from '@angular/http';
+import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-presa-aboutus',
@@ -20,7 +21,7 @@ export class PresaAboutusComponent implements OnInit {
 
   myForm: FormGroup;
 
-  data: any;
+  pressaList: PressaAboutUs[];
 
   constructor(fb: FormBuilder, private sp: PressaServiceService) {
     this.viewnewnopic = false;
@@ -33,15 +34,17 @@ export class PresaAboutusComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sp.getData().subscribe(
+      (results) => { // on sucesss
+        this.pressaList = results;
+        console.log('ddd ', results);
+      });
   }
 
   showNewTopic(): void {
     if (!this.viewnewnopic) {
       this.viewnewnopic = true;
     }
-
-    this.sp.getData().subscribe((data: Response) => console.log(<any> data.json()));
-
   }
 
   onSubmit(form: any): void {

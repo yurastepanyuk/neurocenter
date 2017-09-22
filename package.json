@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
+    "build": "ng build --prod",
+    "start": "run-s build start:server",
+    "start:server": "node src/server/index.js",
+    "watch:client": "ng serve --proxy-config proxy.conf.json --open",
+    "watch:server": "nodemon src/server/index.js",
+    "watch": "run-p watch:*",
     "sample": "node src/server/data/seed-db.js"
   },
   "private": true,
@@ -26,6 +27,8 @@
     "core-js": "^2.4.1",
     "dotenv": "^4.0.0",
     "mongodb": "^2.2.31",
+    "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.1",
     "rxjs": "^5.4.2",
     "semantic-ui": "^2.2.13",
     "zone.js": "^0.8.14"
@@ -49,6 +52,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
-    "typescript": "~2.3.3"
+    "typescript": "~2.3.3",
+    "nodemon": "^1.11.0"
   }
 }
