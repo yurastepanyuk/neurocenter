@@ -1,28 +1,32 @@
 [{
-  "headerTopic" : "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)",
-  "context" : "",
-  "typecontent" : "Video from YouTube",
-  "idcontent" : "0lWLvMKCH-k",
-  "idFileDownload" : ""
+  "headerTopic": "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)",
+  "context": "",
+  "typecontent": "imageFromGoogleDrive",
+  "idcontent": "0B0CqXtLdt9icNXo3bmpVX1NFVDg",
+  "idFileDownload": "",
+  "dateCreated": "2017-09-26T14:24:41.688Z"
 },{
-    "headerTopic" : "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)",
-    "context" : "",
-    "typecontent" : "Image from Google Drive",
-    "idcontent" : "0B0CqXtLdt9icNXo3bmpVX1NFVDg",
-    "idFileDownload" : "0B0CqXtLdt9icUUl2QnpyTHZCMk0"
-  },{
-    "headerTopic" : "Інтерв'ю Сергія Борзенкова виданню Старий центр 01.06.2012 (youtube)",
-    "context" : "",
-    "typecontent" : "Video from YouTube",
-    "idcontent" : "Ep4HHA_kYk0",
-    "idFileDownload" : ""
-  },{
-    "headerTopic" : "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(rom Google Drive)",
-    "context" : "",
-    "typecontent" : "Video from Google Drive",
-    "idcontent" : "0B0CqXtLdt9icU3diSHgxNmF0NU0",
-    "idFileDownload" : ""
-  }]
+  "headerTopic": "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)",
+  "context": "",
+  "typecontent": "folderFromGoogleDrive",
+  "idcontent": "0B0CqXtLdt9icbk90SVpUM2t6TFU",
+  "idFileDownload": "0B0CqXtLdt9icUUl2QnpyTHZCMk0",
+  "dateCreated": "2017-09-27T12:24:41.688Z"
+},{
+  "headerTopic": "Інтерв'ю Сергія Борзенкова виданню Старий центр 01.06.2012 (youtube)",
+  "context": "",
+  "typecontent": "videoFromYouTube",
+  "idcontent": "Ep4HHA_kYk0",
+  "idFileDownload": "",
+  "dateCreated": "2017-09-27T13:24:41.688Z"
+},{
+  "headerTopic": "Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(rom Google Drive)",
+  "context": "",
+  "typecontent": "videoFromGoogleDrive",
+  "idcontent": "0B0CqXtLdt9icU3diSHgxNmF0NU0",
+  "idFileDownload": "",
+  "dateCreated": "2017-09-27T14:24:41.688Z"
+}]
 
 
 

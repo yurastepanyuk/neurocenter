@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-
+import {PressaAboutUsI} from '../dtd/pressa-about-us';
 
 @Injectable()
 export class PressaServiceService {
@@ -16,26 +15,44 @@ export class PressaServiceService {
   }
  // PressaAboutUs[]
  getData(): Observable<PressaAboutUs[]>  {
-   const people$ = this.http.get('api/presa-aboutus').map((response: Response) => {
+
+   const searchParam = new URLSearchParams();
+   // searchParam.set('foo', 'moo');
+   searchParam.set('limit', '25');
+
+   const people$ = this.http.get('api/presa-aboutus', {search: searchParam}).map((response: Response) => {
+     console.log('Response ', response);
      return this.mapPersons(response);
    } ).catch(this.handleError);
 
    return people$;
 
-   // return this.http.get('api/presa-aboutus').map((response: Response) => {
-   //
-   //   return (<any>response.json()).items.map(item => {
-   //     // console.log('raw item ', item); // uncomment if you want to debug
-   //     return new PressaAboutUs({
-   //       id: item._id,
-   //       headerTopic: item.headerTopic,
-   //       context: item.context,
-   //       typecontent: item.typecontent,
-   //       idcontent: item.idcontent
-   //     });
-   //   });
-   // });
+   // JSON.stringify({'dateCreated': new Date()})
 
+  }
+
+  saveNewPressaAnoutUs(newObj: PressaAboutUsI): Observable<PressaAboutUs> {
+
+    const headersRequest = new Headers();
+    headersRequest.append('Content-Type', 'application/json');
+
+    const requestOptions = new RequestOptions({headers: headersRequest});
+    return this.http.post('/api/presa-aboutus', newObj, requestOptions)
+      .map(this.extractData).catch(this.handleError);
+    // It works too, but it can returns Object from <public addedData: PressaAboutUs>;
+    //   .subscribe(
+    //     (resp) => {
+    //       this.addedData = this.toPressaObject(resp.json());
+    //       // console.log(addeddItem.constructor.name);
+    //       // return this.toPressaObject(resp.json());
+    //     }
+    //   );
+    // console.log(this.addedData);
+    // return this.addedData;
+  }
+
+  private extractData(res: Response) {
+    return res.json() || {};
   }
 
   mapPersons(response: Response): PressaAboutUs[] {
@@ -45,27 +62,27 @@ export class PressaServiceService {
   }
 
   toPressaObject(item: any): PressaAboutUs {
-    const person = <PressaAboutUs>({
-      id: item._id,
-      headerTopic: item.headerTopic,
-      context: item.context,
-      typecontent: item.typecontent,
-      idcontent: item.idcontent
+    const person = new PressaAboutUs({
+      id: item && item._id || null,
+      headerTopic: item && item.headerTopic || null,
+      context: item && item.context || null,
+      typecontent: item && item.typecontent || null,
+      idcontent: item && item.idcontent || null,
+      dateCreated: item && item.dateCreated || null
     });
     console.log('Parsed person:', person);
     return person;
   }
 
   // this could also be a private method of the component class
-  handleError (error: any) {
-  // log error
-  // could be something more sofisticated
-  const errorMsg = error.message || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`
-  console.error(errorMsg);
+  handleError(error: Response | any) {
+    // log error
+    // could be something more sofisticated
+   console.error(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);
+    // throw an application level error
+    return Observable.throw(error.message || error);
 
-  // throw an application level error
-  return Observable.throw(errorMsg);
-}
+  }
 
 //   getAll(): Observable<PressaAboutUs[]>{
 //     let people$ = this.http

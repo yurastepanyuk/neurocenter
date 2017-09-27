@@ -6,6 +6,17 @@
     Новая публикация
   </div>
 
+  <div class="ui icon message" *ngIf="newPressaAboutUs">
+    <i class="notched check green icon"></i>
+    <i class="close icon" (click)="newPressaAboutUs = null"></i>
+    <div class="content">
+      <div class="header">
+        New contact added!
+      </div>
+      <p>Тема: {{newPressaAboutUs.headerTopic}}</p>
+    </div>
+  </div>
+
   <div *ngIf="viewnewnopic" class="ui raised segment">
     <h2 class="ui header">Новая публикация</h2>
     <form [formGroup]="myForm"
@@ -26,34 +37,35 @@
                id="context"
                placeholder="Описание"
                name="описание"
-               [formControl]="myForm.get('context')" ngModel>
+               [formControl]="myForm.get('context')">
       </div>
 
-      <div class="field" [class.error]="!myForm.get('typecontent').valid && myForm.get('typecontent').touched">
+      <div class="field" [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">
       <div class="ui sub header">Тип контента</div>
-      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.get('typecontent')" ngModel>
+      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']" ngModel>
         <option value=""></option>
-        <option value="video">Video from YouTube</option>
-        <option value="file">Video from Google Drive</option>
-        <option value="image">Image from Google Drive</option>
-        <option value="file">File from Google Drive</option>
+        <option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>
+        <option value="videoFromGoogleDrive">{{mapKindsOfMedia.get('videoFromGoogleDrive')}}</option>
+        <option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>
+        <option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>
+        <option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>
       </select>
       </div>
 
-      <div class="field" [class.error]="!myForm.get('videoContent').valid && myForm.get('videoContent').touched">
-        <label for="videoContent">ID</label>
+      <div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">
+        <label for="mediaContent">ID</label>
         <input type="text"
-               id="videoContent"
+               id="mediaContent"
                placeholder="ID фото/видео/файла из Google Drive"
-               name="idvideo"
-               [formControl]="myForm.get('videoContent')" ngModel>
+               name="idmedia"
+               [formControl]="myForm.get('mediaContent')" ngModel>
       </div>
 
       <div *ngIf="!myForm.valid"
            class="ui error message">Заполните все поля</div>
 
       <button type="submit" class="ui button">Опубликовать</button>
-      <button class="ui right floated button" (click)="closeForm()">
+      <button class="ui right floated button" (click)="closeForm()" [routerLink]="['/pressaaboutus']">
         Закрыть
       </button>
     </form>
@@ -61,65 +73,65 @@
 
 </div>
 
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)</h2>
+<!--<div class="ui raised very padded text container segment">-->
+  <!--<h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(youtube)</h2>-->
 
-  <div class="ui embed">
-    <iframe class="videoyoutube"  src="https://www.youtube.com/embed/0lWLvMKCH-k" frameborder="0" allowfullscreen></iframe>
-  </div>
+  <!--<div class="ui embed">-->
+    <!--<iframe class="videoyoutube"  src="https://www.youtube.com/embed/0lWLvMKCH-k" frameborder="0" allowfullscreen></iframe>-->
+  <!--</div>-->
 
-  <!--<iframe width="420" height="345" src="https://youtu.be/0lWLvMKCH-k">-->
-  <!--</iframe>-->
+  <!--&lt;!&ndash;<iframe width="420" height="345" src="https://youtu.be/0lWLvMKCH-k">&ndash;&gt;-->
+  <!--&lt;!&ndash;</iframe>&ndash;&gt;-->
 
-  <!--<iframe class="videoyoutube"  src="https://www.youtube.com/embed/0lWLvMKCH-k" frameborder="0" allowfullscreen></iframe>-->
+  <!--&lt;!&ndash;<iframe class="videoyoutube"  src="https://www.youtube.com/embed/0lWLvMKCH-k" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
 
-  <!--<iframe width="420" height="345" src="www.youtube.com/watch?v=0lWLvMKCH-k">-->
-  <!--</iframe>-->
-  <!--<iframe class="videoyoutube"  src="https://drive.google.com/file/d/0B0CqXtLdt9icS0VLLXhKZzVwVkk/view?usp=sharing" frameborder="0" allowfullscreen></iframe>-->
+  <!--&lt;!&ndash;<iframe width="420" height="345" src="www.youtube.com/watch?v=0lWLvMKCH-k">&ndash;&gt;-->
+  <!--&lt;!&ndash;</iframe>&ndash;&gt;-->
+  <!--&lt;!&ndash;<iframe class="videoyoutube"  src="https://drive.google.com/file/d/0B0CqXtLdt9icS0VLLXhKZzVwVkk/view?usp=sharing" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
 
-  <!--<img src="https://lh4.googleusercontent.com/rnxETHWanxFlgvjE58-aiSaQYBrNbPv5RA8KFI0Zc9Q8ljXN2OhwTnhmsBtom7nNT9RysSPt=w1366-h683" alt="W3Schoolss.com" style="width:128px;height:128px;">-->
+  <!--&lt;!&ndash;<img src="https://lh4.googleusercontent.com/rnxETHWanxFlgvjE58-aiSaQYBrNbPv5RA8KFI0Zc9Q8ljXN2OhwTnhmsBtom7nNT9RysSPt=w1366-h683" alt="W3Schoolss.com" style="width:128px;height:128px;">&ndash;&gt;-->
 
-</div>
+<!--</div>-->
 
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Интервью директора нейрохирургического центра - Сергея Борзенкова (Google Drive)</h2>
+<!--<div class="ui raised very padded text container segment">-->
+  <!--<h2 class="ui header">Интервью директора нейрохирургического центра - Сергея Борзенкова (Google Drive)</h2>-->
 
-  <!--How to host Images and JavaScript/CSS files on Google Drive-->
-  <!--LINK GENERATOR from share link  http://www.hugestreet.info/p/direct-download-link-generator.html-->
-  <img class="ui centered medium image" src="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icNXo3bmpVX1NFVDg">
+  <!--&lt;!&ndash;How to host Images and JavaScript/CSS files on Google Drive&ndash;&gt;-->
+  <!--&lt;!&ndash;LINK GENERATOR from share link  http://www.hugestreet.info/p/direct-download-link-generator.html&ndash;&gt;-->
+  <!--<img class="ui centered medium image" src="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icNXo3bmpVX1NFVDg">-->
 
-  <button class="ui right basic button">
-    <!--Линк для скачивания файлов - нужно только ID поменять
-    https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0-->
-    <a href="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icUUl2QnpyTHZCMk0" >  <i class="download icon" aria-hidden="true"></i>
-      Скачать (from Google Drive)
-    </a>
-  </button>
+  <!--<button class="ui right basic button">-->
+    <!--&lt;!&ndash;Линк для скачивания файлов - нужно только ID поменять-->
+    <!--https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0&ndash;&gt;-->
+    <!--<a href="https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icUUl2QnpyTHZCMk0" >  <i class="download icon" aria-hidden="true"></i>-->
+      <!--Скачать (from Google Drive)-->
+    <!--</a>-->
+  <!--</button>-->
 
-  <!--Получить список файлов из расшареного каталога Google Drive-->
-  <iframe src="https://drive.google.com/embeddedfolderview?id=0B0CqXtLdt9icbk90SVpUM2t6TFU#list" style="width:100%; height:600px; border:0;"></iframe>
+  <!--&lt;!&ndash;Получить список файлов из расшареного каталога Google Drive&ndash;&gt;-->
+  <!--<iframe src="https://drive.google.com/embeddedfolderview?id=0B0CqXtLdt9icbk90SVpUM2t6TFU#list" style="width:100%; height:600px; border:0;"></iframe>-->
 
-</div>
+<!--</div>-->
 
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Інтерв'ю Сергія Борзенкова виданню Старий центр 01.06.2012 (youtube)</h2>
+<!--<div class="ui raised very padded text container segment">-->
+  <!--<h2 class="ui header">Інтерв'ю Сергія Борзенкова виданню Старий центр 01.06.2012 (youtube)</h2>-->
 
-  <div class="ui embed">
-    <iframe class="videoyoutube"  src="https://www.youtube.com/embed/Ep4HHA_kYk0" frameborder="0" allowfullscreen>></iframe>
-  </div>
+  <!--<div class="ui embed">-->
+    <!--<iframe class="videoyoutube"  src="https://www.youtube.com/embed/Ep4HHA_kYk0" frameborder="0" allowfullscreen>></iframe>-->
+  <!--</div>-->
 
-</div>
+<!--</div>-->
 
 
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(rom Google Drive)</h2>
+<!--<div class="ui raised very padded text container segment">-->
+  <!--<h2 class="ui header">Нейрохірургічні аспекти лікування патології шийного відділу хребта. Борзенков С.І.(rom Google Drive)</h2>-->
 
-  <div class="ui embed">
-    <!--Менять нужно только ИД и видео будет запускаться-->
-    <iframe width="100%" height="100%" src='https://drive.google.com/file/d/0B0CqXtLdt9icU3diSHgxNmF0NU0/preview'></iframe>
-  </div>
+  <!--<div class="ui embed">-->
+    <!--&lt;!&ndash;Менять нужно только ИД и видео будет запускаться&ndash;&gt;-->
+    <!--<iframe width="100%" height="100%" src='https://drive.google.com/file/d/0B0CqXtLdt9icU3diSHgxNmF0NU0/preview'></iframe>-->
+  <!--</div>-->
 
-</div>
+<!--</div>-->
 
 <div *ngFor="let curPressa of pressaList">
   <app-pressa-cur-object [pressaObject]="curPressa"></app-pressa-cur-object>

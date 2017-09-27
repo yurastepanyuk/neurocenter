@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PressaAboutUs} from '../../dtd/pressa-about-us.model';
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
+
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pressa-cur-object',
@@ -20,12 +22,15 @@ export class PressaCurObjectComponent implements OnInit {
   }
 
   isThereMedia: boolean;
+  isItImgGoogleDrive: boolean;
+  isItVideoGoogleDrive: boolean;
+  isItVideoYoutube: boolean;
   isThereDownload: boolean;
   isThereFolder: boolean;
 
   myForm: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, public sanitizer: DomSanitizer) {
 
     this.myForm = fb.group({
       'pressaObject':  [{}]
@@ -38,8 +43,23 @@ export class PressaCurObjectComponent implements OnInit {
   initObject(): void {
     console.log('initObject: ', this.pressaObject);
 
+    if (this._pressaObject.typecontent === 'imageFromGoogleDrive'
+      || this._pressaObject.typecontent === 'videoFromYouTube'
+      || this._pressaObject.typecontent === 'videoFromGoogleDrive') {
+      this.isThereMedia = true;
 
-
+      if (this._pressaObject.typecontent === 'imageFromGoogleDrive') {
+        this.isItImgGoogleDrive = true;
+      } else if (this._pressaObject.typecontent === 'videoFromYouTube') {
+        this.isItVideoYoutube = true;
+      } else if (this._pressaObject.typecontent === 'videoFromGoogleDrive') {
+        this.isItVideoGoogleDrive = true;
+      }
+    } else if (this._pressaObject.typecontent === 'fileFromGoogleDrive') {
+      this.isThereDownload = true;
+    } else if (this._pressaObject.typecontent === 'folderFromGoogleDrive') {
+      this.isThereFolder = true;
+    }
   }
 
   // ngOnChanges(changes: SimpleChanges) {
@@ -53,5 +73,21 @@ export class PressaCurObjectComponent implements OnInit {
   //   // transform value for display
   //   return this._name.toUpperCase();
   // }
+
+  getUrlMediaContent(): string {
+    if (this.isItImgGoogleDrive) {
+      return 'https://drive.google.com/uc?export=download&id=' + this._pressaObject.idcontent;
+    } else if (this.isItVideoGoogleDrive) {
+      return 'https://drive.google.com/file/d/' + this._pressaObject.idcontent + '/preview';
+    } else if (this.isItVideoYoutube) {
+      return 'https://www.youtube.com/embed/' + this._pressaObject.idcontent;
+    } else if (this.isThereFolder) {
+      return 'https://drive.google.com/embeddedfolderview?id=' + this._pressaObject.idcontent + '#list';
+    } else if (this.isThereDownload) {
+      return 'https://drive.google.com/uc?export=download&id=' + this._pressaObject.idcontent;
+    }
+
+    return '';
+  }
 
 }

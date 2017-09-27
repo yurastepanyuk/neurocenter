@@ -21,6 +21,28 @@ import { OfflineConsultationComponent } from './offline-consultation/offline-con
 import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
 import { PressaCurObjectComponent } from './presa-aboutus/pressa-cur-object/pressa-cur-object.component';
 
+export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
+  [['', ''],
+    ['videoFromYouTube', 'Video from YouTube'],
+    ['videoFromGoogleDrive', 'Video from Google Drive'],
+    ['imageFromGoogleDrive', 'Image from Google Drive'],
+    ['fileFromGoogleDrive', 'File from Google Drive'],
+    ['folderFromGoogleDrive', 'Folder from Google Drive'],
+    ['otherContent', 'Other content']
+  ]
+);
+  // (
+  // (const result = new Map< string, string>())=> {
+    // const result = new Map< string, string>();
+    // result.set('videoFromYouTube', 'Video from YouTube');
+    // result.set('videoFromGoogleDrive', 'Video from Google Drive');
+    // result.set('imageFromGoogleDrive', 'Image from Google Drive');
+    // result.set('fileFromGoogleDrive', 'File from Google Drive');
+    // result.set('folderFromGoogleDrive', 'Folder from Google Drive');
+    // return result;
+//   }
+// )
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,10 +67,10 @@ import { PressaCurObjectComponent } from './presa-aboutus/pressa-cur-object/pres
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-
     PressaModuleModule
   ],
-  providers: [ ],
+  providers: [{ provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia }  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
