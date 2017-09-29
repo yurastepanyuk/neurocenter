@@ -25,8 +25,8 @@ export class PressaCurObjectComponent implements OnInit {
   isItImgGoogleDrive: boolean;
   isItVideoGoogleDrive: boolean;
   isItVideoYoutube: boolean;
-  isThereDownload: boolean;
-  isThereFolder: boolean;
+  isThereDownloadGoogleDrive: boolean;
+  isThereFolderGoogleDrive: boolean;
 
   myForm: FormGroup;
 
@@ -56,9 +56,9 @@ export class PressaCurObjectComponent implements OnInit {
         this.isItVideoGoogleDrive = true;
       }
     } else if (this._pressaObject.typecontent === 'fileFromGoogleDrive') {
-      this.isThereDownload = true;
+      this.isThereDownloadGoogleDrive = true;
     } else if (this._pressaObject.typecontent === 'folderFromGoogleDrive') {
-      this.isThereFolder = true;
+      this.isThereFolderGoogleDrive = true;
     }
   }
 
@@ -81,9 +81,9 @@ export class PressaCurObjectComponent implements OnInit {
       return 'https://drive.google.com/file/d/' + this._pressaObject.idcontent + '/preview';
     } else if (this.isItVideoYoutube) {
       return 'https://www.youtube.com/embed/' + this._pressaObject.idcontent;
-    } else if (this.isThereFolder) {
+    } else if (this.isThereFolderGoogleDrive) {
       return 'https://drive.google.com/embeddedfolderview?id=' + this._pressaObject.idcontent + '#list';
-    } else if (this.isThereDownload) {
+    } else if (this.isThereDownloadGoogleDrive) {
       return 'https://drive.google.com/uc?export=download&id=' + this._pressaObject.idcontent;
     }
 

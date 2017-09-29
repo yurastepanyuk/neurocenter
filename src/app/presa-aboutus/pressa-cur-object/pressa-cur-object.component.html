@@ -1,5 +1,5 @@
 <div class="ui raised very padded text container segment">
-  <h2 class="ui header">{{_pressaObject.headerTopic}} FFFFFF</h2>
+  <h2 class="ui header">{{_pressaObject.headerTopic}}</h2>
 
   <!--How to host Images and JavaScript/CSS files on Google Drive-->
   <!--LINK GENERATOR from share link  http://www.hugestreet.info/p/direct-download-link-generator.html-->
@@ -23,17 +23,18 @@
     <div class="column"><p>{{_pressaObject.context}}</p></div>
   </div>
 
-  <div *ngIf="isThereDownload">
+  <div *ngIf="isThereDownloadGoogleDrive">
     <button class="ui right basic button">
       <!--Линк для скачивания файлов - нужно только ID поменять
       https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0-->
-      <a href="https://drive.google.com/uc?export=download&id={{_pressaObject.idcontent}}" >  <i class="download icon" aria-hidden="true"></i>
+      <!--https://drive.google.com/uc?export=download&id={{_pressaObject.idcontent}} -->
+      <a href='{{getUrlMediaContent()}}' >  <i class="download icon" aria-hidden="true"></i>
         Скачать (from Google Drive)
       </a>
     </button>
   </div>
 
-  <div *ngIf="isThereFolder">
+  <div *ngIf="isThereFolderGoogleDrive">
     <!--Получить список файлов из расшареного каталога Google Drive-->
     <!--'sanitizer.bypassSecurityTrustResourceUrl(myurl)'-->
     <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl(getUrlMediaContent())' style="width:100%; height:600px; border:0;"></iframe>

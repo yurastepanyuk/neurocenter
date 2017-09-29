@@ -31,17 +31,6 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     ['otherContent', 'Other content']
   ]
 );
-  // (
-  // (const result = new Map< string, string>())=> {
-    // const result = new Map< string, string>();
-    // result.set('videoFromYouTube', 'Video from YouTube');
-    // result.set('videoFromGoogleDrive', 'Video from Google Drive');
-    // result.set('imageFromGoogleDrive', 'Image from Google Drive');
-    // result.set('fileFromGoogleDrive', 'File from Google Drive');
-    // result.set('folderFromGoogleDrive', 'Folder from Google Drive');
-    // return result;
-//   }
-// )
 
 @NgModule({
   declarations: [

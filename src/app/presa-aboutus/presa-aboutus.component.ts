@@ -74,24 +74,13 @@ export class PresaAboutusComponent implements OnInit {
 
     // const formValues = Object.assign({}, form.value);
 
-    const headerTopic = this.myForm.get('headerTopic').value;
-    const context = this.myForm.get('context').value;
-    // const typecontent = this.myForm.get('typecontent').value;
-    const typecontent = this.mapKindsOfMedia.forEach((value, key, map) => {
-      if (key === this.myForm.get('typecontent').value.trim()) {
-        return value;
-      }
-      return null;
-    })
-    const mediaContent = this.myForm.get('mediaContent').value;
-
     // console.log('you submitted value from formValues:', form);
 
     const newObj: PressaAboutUsI = {
       headerTopic: this.myForm.get('headerTopic').value,
       context: this.myForm.get('context').value,
       typecontent: this.myForm.get('typecontent').value,
-      idcontent: this.myForm.get('mediaContent').value,
+      idcontent: this.parseMediaContentLink(this.myForm.get('mediaContent').value, this.myForm.get('typecontent').value),
       dateCreated: new Date().toISOString()
     };
 
@@ -124,4 +113,19 @@ export class PresaAboutusComponent implements OnInit {
     return input.sort((a: PressaAboutUs, b: PressaAboutUs) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated));
   }
 
+
+  private parseMediaContentLink(link: string, typeContent: string) {
+    console.log(typeContent);
+    if (typeContent.indexOf('GoogleDrive') >= 0) {
+      const arraySubstring = link.split('/');
+      const lastString = arraySubstring[arraySubstring.length - 1];
+      return lastString.slice(lastString.indexOf('id=') + 3);
+    } else if (typeContent.indexOf('YouTube') >= 0 ) {
+      const arraySubstring = link.split('/');
+      const lastString = arraySubstring[arraySubstring.length - 1];
+      return lastString.slice(lastString.indexOf('v=') + 2);
+    }else {
+      return link;
+    }
+  }
 }

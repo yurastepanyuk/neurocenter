@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 
-import 'rxjs/add/operator/catch';
+// import {ErrorObservable}from 'rxjs/observable/throw';
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 
 @Injectable()
@@ -21,8 +23,8 @@ export class PressaServiceService {
    searchParam.set('limit', '25');
 
    const people$ = this.http.get('api/presa-aboutus', {search: searchParam}).map((response: Response) => {
-     console.log('Response ', response);
-     return this.mapPersons(response);
+      console.log('Response ', response);
+      return this.mapPersons(response);
    } ).catch(this.handleError);
 
    return people$;
@@ -78,7 +80,7 @@ export class PressaServiceService {
   handleError(error: Response | any) {
     // log error
     // could be something more sofisticated
-   console.error(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);
+   console.log(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);
     // throw an application level error
     return Observable.throw(error.message || error);
 
