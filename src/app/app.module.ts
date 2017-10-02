@@ -20,6 +20,7 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import { OfflineConsultationComponent } from './offline-consultation/offline-consultation.component';
 import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
 import { PressaCurObjectComponent } from './presa-aboutus/pressa-cur-object/pressa-cur-object.component';
+import {ApiService} from './shared/api.service';
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -58,7 +59,10 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     AppRoutingModule,
     PressaModuleModule
   ],
-  providers: [{ provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia }  ],
+  providers: [
+    { provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia },
+    { provide: ApiService, useClass: ApiService}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

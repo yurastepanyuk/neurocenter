@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, RequestOptions, Headers} from '@angular/http';
+// import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 
-// import {ErrorObservable}from 'rxjs/observable/throw';
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
+import {ApiService} from '../shared/api.service';
 
 @Injectable()
 export class PressaServiceService {
 
-  constructor(private http: Http) {
+  constructor(private api: ApiService ) {
 
   }
  // PressaAboutUs[]
@@ -22,12 +22,16 @@ export class PressaServiceService {
    // searchParam.set('foo', 'moo');
    searchParam.set('limit', '25');
 
-   const people$ = this.http.get('api/presa-aboutus', {search: searchParam}).map((response: Response) => {
-      console.log('Response ', response);
-      return this.mapPersons(response);
-   } ).catch(this.handleError);
+   // const people$ = this.http.get('api/presa-aboutus', {search: searchParam}).map((response: Response) => {
+   //    console.log('Response ', response);
+   //    return this.mapPersons(response);
+   // } ).catch(this.handleError);
 
-   return people$;
+   const pressadata$ = this.api.get('presa-aboutus').map((data: any) => {
+     return data.map(this.toPressaObject);
+   } );
+
+   return pressadata$;
 
    // JSON.stringify({'dateCreated': new Date()})
 
@@ -35,12 +39,14 @@ export class PressaServiceService {
 
   saveNewPressaAnoutUs(newObj: PressaAboutUsI): Observable<PressaAboutUs> {
 
-    const headersRequest = new Headers();
-    headersRequest.append('Content-Type', 'application/json');
+    // const headersRequest = new Headers();
+    // headersRequest.append('Content-Type', 'application/json');
+    //
+    // // const requestOptions = new RequestOptions({headers: headersRequest});
+    // return this.api.post('/api/presa-aboutus', newObj, requestOptions)
+    //   .map(this.extractData).catch(this.handleError);
 
-    const requestOptions = new RequestOptions({headers: headersRequest});
-    return this.http.post('/api/presa-aboutus', newObj, requestOptions)
-      .map(this.extractData).catch(this.handleError);
+    return this.api.post('presa-aboutus', newObj).catch(this.handleError);
     // It works too, but it can returns Object from <public addedData: PressaAboutUs>;
     //   .subscribe(
     //     (resp) => {
@@ -57,11 +63,11 @@ export class PressaServiceService {
     return res.json() || {};
   }
 
-  mapPersons(response: Response): PressaAboutUs[] {
-    // The response of the API has a results
-    // property with the actual results
-    return response.json().map(this.toPressaObject);
-  }
+  // mapPersons(response: Response): PressaAboutUs[] {
+  //   // The response of the API has a results
+  //   // property with the actual results
+  //   return response.json().map(this.toPressaObject);
+  // }
 
   toPressaObject(item: any): PressaAboutUs {
     const person = new PressaAboutUs({
@@ -83,7 +89,6 @@ export class PressaServiceService {
    console.log(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);
     // throw an application level error
     return Observable.throw(error.message || error);
-
   }
 
 //   getAll(): Observable<PressaAboutUs[]>{
