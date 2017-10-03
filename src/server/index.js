@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
+const path = require('path');
 
 require('dotenv').config();
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/profiles', express.static(path.join(__dirname, 'profiles')));
 app.use(bodyParser.json());
 
 MongoClient.connect(process.env.DB_CONN, (err, db) => {
@@ -17,6 +20,10 @@ MongoClient.connect(process.env.DB_CONN, (err, db) => {
   });
 
 });
+
+// app.get('*', (req, res) => {
+//   return res.sendFile(path.join(__dirname, 'public/index.html'))
+// });
 
 app.get('/api/presa-aboutus', (req, res) => {
   const contactsCollection = database.collection('presa-aboutus');
@@ -40,4 +47,5 @@ app.post('/api/presa-aboutus', (req, res) => {
 
     return res.status(201).json(newRecord);
   });
+
 });

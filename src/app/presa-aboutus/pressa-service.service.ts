@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-// import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
-
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 import {ApiService} from '../shared/api.service';
 
@@ -34,7 +32,6 @@ export class PressaServiceService {
    return pressadata$;
 
    // JSON.stringify({'dateCreated': new Date()})
-
   }
 
   saveNewPressaAnoutUs(newObj: PressaAboutUsI): Observable<PressaAboutUs> {
@@ -42,21 +39,11 @@ export class PressaServiceService {
     // const headersRequest = new Headers();
     // headersRequest.append('Content-Type', 'application/json');
     //
-    // // const requestOptions = new RequestOptions({headers: headersRequest});
-    // return this.api.post('/api/presa-aboutus', newObj, requestOptions)
+    // const requestOptions = new RequestOptions({headers: headersRequest});
+    // return this.http.post('/api/presa-aboutus', newObj, requestOptions)
     //   .map(this.extractData).catch(this.handleError);
 
     return this.api.post('presa-aboutus', newObj).catch(this.handleError);
-    // It works too, but it can returns Object from <public addedData: PressaAboutUs>;
-    //   .subscribe(
-    //     (resp) => {
-    //       this.addedData = this.toPressaObject(resp.json());
-    //       // console.log(addeddItem.constructor.name);
-    //       // return this.toPressaObject(resp.json());
-    //     }
-    //   );
-    // console.log(this.addedData);
-    // return this.addedData;
   }
 
   private extractData(res: Response) {

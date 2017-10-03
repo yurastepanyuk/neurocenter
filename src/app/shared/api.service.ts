@@ -96,12 +96,17 @@ export class ApiService {
     return responseIn.json();
   }
 
-  handleError(error: Response | any) {
+  handleError(errorRes: Response | any) {
     // log error
     // could be something more sofisticated
-    console.log(error.message || error || `There was a problem and we couldn't retrieve your data!`);
+    const error = {
+      statusCode: errorRes.status || 500,
+      error: errorRes.json().error || '',
+      message: errorRes.message
+    };
+    console.log(error || errorRes.message || errorRes || `There was a problem and we couldn't retrieve your data!`);
     // throw an application level error
-    return Observable.throw(error.message || error);
+    return Observable.throw(error || errorRes.message || errorRes);
   }
 
 }
