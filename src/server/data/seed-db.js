@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const pressaaboutus = require('./pressaaboutus');
-// const contacts = require('./contacts');
+const users = require('./users');
 
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
@@ -32,4 +32,5 @@ function seedCollection(collectionName, initialRecords) {
   });
 }
 
-seedCollection('presa-aboutus', pressaaboutus);
+// seedCollection('presa-aboutus', pressaaboutus);
+seedCollection('users', users);

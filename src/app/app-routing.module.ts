@@ -11,8 +11,10 @@ import {OnlineConsultationComponent} from './online-consultation/online-consulta
 import {PreoperativePreparationComponent} from './preoperative-preparation/preoperative-preparation.component';
 import {MaterialsComponent} from './materials/materials.component';
 import {UserComponent} from './user/user.component';
-import {LoginUserComponent} from './login-user/login-user.component';
 import {OfflineConsultationComponent} from './offline-consultation/offline-consultation.component';
+import {LoginComponent} from './login/login.component';
+import {ClientsListComponent} from './clients/clients-list/clients-list.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {
@@ -61,12 +63,21 @@ const routes: Routes = [
     component: UserComponent
   },
   {
-    path: 'loginuser',
-    component: LoginUserComponent
-  },
-  {
     path: 'offlineconsultation',
     component: OfflineConsultationComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'clients',
+    component: ClientsListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 
 ];

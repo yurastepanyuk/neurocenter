@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 import {forEach} from '@angular/router/src/utils/collection';
+import {AuthService} from "../shared/auth.service";
 
 @Component({
   selector: 'app-presa-aboutus',
@@ -32,7 +33,10 @@ export class PresaAboutusComponent implements OnInit {
 
   errorMessage: String;
 
-  constructor(fb: FormBuilder, private sp: PressaServiceService, @Inject('mapKindsOfMedia') public mapKindsOfMedia: Map<string, string>) {
+  constructor(fb: FormBuilder,
+              private sp: PressaServiceService,
+              @Inject('mapKindsOfMedia') public mapKindsOfMedia: Map<string, string>,
+              public auth: AuthService) {
 
     this.viewnewnopic = false;
     this.myForm = fb.group({

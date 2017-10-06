@@ -16,11 +16,14 @@ import { OnlineConsultationComponent } from './online-consultation/online-consul
 import { PreoperativePreparationComponent } from './preoperative-preparation/preoperative-preparation.component';
 import { MaterialsComponent } from './materials/materials.component';
 import { UserComponent } from './user/user.component';
-import { LoginUserComponent } from './login-user/login-user.component';
 import { OfflineConsultationComponent } from './offline-consultation/offline-consultation.component';
-import {PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
+import { PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
 import { PressaCurObjectComponent } from './presa-aboutus/pressa-cur-object/pressa-cur-object.component';
-import {ApiService} from './shared/api.service';
+import { ApiService} from './shared/api.service';
+import { AuthService} from './shared/auth.service';
+import { LoginComponent } from './login/login.component';
+import { ClientsListComponent } from './clients/clients-list/clients-list.component';
+import {AuthGuard} from './auth.guard';
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -32,6 +35,8 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     ['otherContent', 'Other content']
   ]
 );
+
+export const openUrl: string[] = ['presa-aboutus', 'online-consultation', 'materials', 'feedback-clients', 'preoperative-preparation'];
 
 @NgModule({
   declarations: [
@@ -47,9 +52,10 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     PreoperativePreparationComponent,
     MaterialsComponent,
     UserComponent,
-    LoginUserComponent,
     OfflineConsultationComponent,
-    PressaCurObjectComponent
+    PressaCurObjectComponent,
+    LoginComponent,
+    ClientsListComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,10 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   ],
   providers: [
     { provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia },
-    { provide: ApiService, useClass: ApiService}
+    { provide: 'openUrl', useValue: openUrl},
+    { provide: ApiService, useClass: ApiService},
+    { provide: AuthService, useClass: AuthService},
+    { provide: AuthGuard, useClass: AuthGuard}
     ],
   bootstrap: [AppComponent]
 })

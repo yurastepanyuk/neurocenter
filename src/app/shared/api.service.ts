@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { Http, Headers, Request, RequestOptions, RequestMethod, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class ApiService {
 
   private baseUrl = environment.apiUrl;
+  private baseUrlOpen = environment.apiUrlOpen;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private auth: AuthService,
+              @Inject('openUrl') public openUrl: Array<string> ) { }
 
   get(url: string): Observable<any> {
     const options: Map<string, Object> = this.prepareRequest(url);
@@ -52,8 +56,10 @@ export class ApiService {
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    const apiUrl = `${this.baseUrl}/${url}`;
+    headers.append('Authorization', 'Bearer ' + this.auth.getToken() );
+    const apiUrl = `${this.isItOpenUrl(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
 
+    console.log('url for http: ' + apiUrl);
     const requestOptions = new RequestOptions({
       url: apiUrl,
       headers: headers
@@ -66,6 +72,13 @@ export class ApiService {
     result.set('url', apiUrl);
     result.set('body', body);
     return result;
+  }
+  isItOpenUrl(url: string): boolean {
+    if ( this.openUrl.indexOf(url) < 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   // request(url: string, method: RequestMethod, body?: Object): Observable<any> {

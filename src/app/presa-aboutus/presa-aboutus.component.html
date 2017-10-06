@@ -1,7 +1,7 @@
 
 <div class="ui raised very padded text container segment">
 
-  <div (click)="showNewTopic()" class="ui button">
+  <div (click)="showNewTopic()" *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()" class="ui button">
     <i class="sticky note outline icon"></i>
     Новая публикация
   </div>
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div *ngIf="viewnewnopic" class="ui raised segment">
+  <div *ngIf="viewnewnopic" class="ui raised segment" >
     <h2 class="ui header">Новая публикация</h2>
     <form [formGroup]="myForm"
           (ngSubmit)="onSubmit(myForm.value)"

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,7 +10,7 @@ import {ApiService} from '../shared/api.service';
 @Injectable()
 export class PressaServiceService {
 
-  constructor(private api: ApiService ) {
+  constructor(private api: ApiService) {
 
   }
  // PressaAboutUs[]

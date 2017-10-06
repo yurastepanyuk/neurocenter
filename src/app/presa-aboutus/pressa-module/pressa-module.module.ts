@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PressaServiceService } from '../pressa-service.service';
-
 @NgModule({
   imports: [
     CommonModule
