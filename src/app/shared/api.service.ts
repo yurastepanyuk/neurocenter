@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import { Http, Headers, Request, RequestOptions, RequestMethod, Response } from '@angular/http';
+import {Http, Headers, Request, RequestOptions, RequestMethod, Response, RequestOptionsArgs} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
@@ -14,10 +14,11 @@ export class ApiService {
 
   constructor(private http: Http,
               private auth: AuthService,
-              @Inject('openUrl') public openUrl: Array<string> ) { }
+              @Inject('openUrlGet') public openUrlGet: Array<string>,
+              @Inject('openUrlPost') public openUrlPost: Array<string>) { }
 
   get(url: string): Observable<any> {
-    const options: Map<string, Object> = this.prepareRequest(url);
+    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Get);
     return this.http.get(options.get('url').toString(), options.get('headers')).map((response: Response) => {
        console.log('Response get', response);
        return response.json();
@@ -25,7 +26,7 @@ export class ApiService {
   }
 
   post(url: string, body: Object) {
-    const options: Map<string, Object> = this.prepareRequest(url, body);
+    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Post, body);
     // return this.request(url, RequestMethod.Post, body);
     return this.http.post(options.get('url').toString(), options.get('body'), options.get('headers')).map((response: Response) => {
       console.log('Response post', response);
@@ -34,31 +35,43 @@ export class ApiService {
   }
 
   put(url: string, body: Object) {
-    // return this.request(url, RequestMethod.Put, body);
-    const options: Map<string, Object> = this.prepareRequest(url, body);
+    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Put, body);
     return this.http.put(options.get('url').toString(), options.get('body'), options.get('headers')).map((response: Response) => {
       console.log('Response put', response);
       return response.json();
     } ).catch(this.handleError);
   }
 
-  delete(url: string) {
-    // return this.request(url, RequestMethod.Delete);
-    const options: Map<string, Object> = this.prepareRequest(url);
+  delete(url: string, body: Object) {
+    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Post, body);
     return this.http.delete(options.get('url').toString(), options.get('headers')).map((response: Response) => {
-      console.log('Response delete', response);
       return response.json();
     } ).catch(this.handleError);
   }
 
-  prepareRequest(url: string, body?: Object): Map< string, Object> {
+  prepareRequest(url: string, method: RequestMethod, body?: any): Map< string, Object> {
     const result = new Map< string, Object>();
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.auth.getToken() );
-    const apiUrl = `${this.isItOpenUrl(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
-
+    headers.append('Authorization', 'Bearer ' + this.auth.getToken());
+    headers.append('charset', 'utf-8');
+    let apiUrl = `${this.baseUrl}/${url}`;
+    if (method === RequestMethod.Get) {
+      apiUrl = `${this.isItOpenUrlGet(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
+    } else if (method === RequestMethod.Post || method === RequestMethod.Delete) {
+      apiUrl = `${this.isItOpenUrlPost(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
+    } else {
+      apiUrl = `${this.baseUrl}/${url}`;
+    }
+    // const params = new URLSearchParams();
+    // let paramsJson;
+    // if (body) {
+    //   if (body.idObject) {
+    //     // params.set('idObject', body.idObject);
+    //     paramsJson = {idObject: body.idObject};
+    //   }
+    // }
     console.log('url for http: ' + apiUrl);
     const requestOptions = new RequestOptions({
       url: apiUrl,
@@ -68,13 +81,23 @@ export class ApiService {
     if (body) {
       requestOptions.body = body;
     }
+    // result.set('params', params);
     result.set('headers', requestOptions);
     result.set('url', apiUrl);
     result.set('body', body);
+    console.log('prepareRequest result URLSearchParams ', result);
     return result;
   }
-  isItOpenUrl(url: string): boolean {
-    if ( this.openUrl.indexOf(url) < 0) {
+  isItOpenUrlGet(url: string): boolean {
+    if ( this.openUrlGet.indexOf(url) < 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  isItOpenUrlPost(url: string): boolean {
+    if ( this.openUrlPost.indexOf(url) < 0) {
       return false;
     } else {
       return true;

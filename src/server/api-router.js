@@ -2,6 +2,7 @@ const express = require('express');
 const jwt =require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const checkJwt = require('express-jwt');
+const ObjectID = require('mongodb-core').BSON.ObjectID;
 
 function apiRouter(database) {
   const router = express.Router();
@@ -16,38 +17,20 @@ function apiRouter(database) {
     }
   });
 
-  // router.get('/contacts', (req, res) => {
-  //
-  //   const contactsCollection = database.collection('contacts');
-  //
-  //   contactsCollection.find({}).toArray((err, docs) => {
-  //     return res.json(docs)
-  //   });
-  //
-  // });
-  //
-  // router.post('/contacts', (req, res) => {
-  //   const user = req.body;
-  //
-  //   const contactsCollection = database.collection('contacts');
-  //
-  //   contactsCollection.insertOne(user, (err, r) => {
-  //     if (err) {
-  //       return res.status(500).json({ error: 'Error inserting new record.' })
-  //     }
-  //
-  //     const newRecord = r.ops[0];
-  //
-  //     return res.status(201).json(newRecord);
-  //   });
-  // });
-
   router.get('/presa-aboutus', (req, res) => {
     const contactsCollection = database.collection('presa-aboutus');
 
     contactsCollection.find({}).toArray((err, docs) => {
       return res.json(docs);
     });
+  });
+
+  router.post('/presaaboutusdelete', (req, res) => {
+    const user = req.body;
+    console.log('/presa-aboutus-delete');
+
+    res.send({delete: 'presa-aboutus-delete ' + req.body});
+
   });
 
   router.post('/presa-aboutus', (req, res) => {
@@ -95,6 +78,51 @@ function apiRouter(database) {
         });
       });
   });
+
+  router.put('/presa-aboutus', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const contactsCollection = database.collection('presa-aboutus');
+
+    const obId = new ObjectID(idObject);
+
+    contactsCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          headerTopic: updContent.headerTopic,
+          context: updContent.context,
+          typecontent: updContent.typecontent,
+          idcontent: updContent.idcontent
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+
+  router.delete('/presa-aboutus', (req, res) => {
+
+    console.log('delete /presa-aboutus ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const contactsCollection = database.collection('presa-aboutus');
+
+    const obId = new ObjectID(idObject);
+
+    contactsCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
 
   return router;
 }

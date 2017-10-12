@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 import {forEach} from '@angular/router/src/utils/collection';
-import {AuthService} from "../shared/auth.service";
+import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-presa-aboutus',
@@ -45,10 +45,13 @@ export class PresaAboutusComponent implements OnInit {
       'typecontent':  ['', Validators.required],
       'mediaContent':  ['', Validators.required]
     });
+
+    sp.needUpdateParent.subscribe((obj: any) => {
+      console.log(`Subscribe ${obj}`);
+    });
   }
 
-  ngOnInit() {
-    this.keysKindsOfMedia = Array.from(this.mapKindsOfMedia.keys());
+  updateView() {
     this.sp.getData().subscribe(
       (results) => { // on sucesss
         // this.pressaList = results;
@@ -58,6 +61,11 @@ export class PresaAboutusComponent implements OnInit {
           console.log(this.pressaList[i]);
         }
       });
+  }
+  ngOnInit() {
+    this.keysKindsOfMedia = Array.from(this.mapKindsOfMedia.keys());
+    this.updateView();
+    console.log('USER ' + this.auth.getUser());
   }
 
   showNewTopic(): void {
@@ -94,11 +102,12 @@ export class PresaAboutusComponent implements OnInit {
         console.log('addedItem: ');
         console.log(addedItem);
         this.newPressaAboutUs = addedItem;
-        this.sp.getData().subscribe(
-          (results) => { // on sucesss
-            // this.pressaList = results;
-            this.pressaList = this.sortedPressaAboutUs(results);
-          });
+        this.updateView();
+        // this.sp.getData().subscribe(
+        //   (results) => { // on sucesss
+        //     // this.pressaList = results;
+        //     this.pressaList = this.sortedPressaAboutUs(results);
+        //   });
         },
       error => this.errorMessage = <any>error);
     // console.log(addeddItem.constructor.name);

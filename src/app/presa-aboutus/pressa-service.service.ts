@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -6,12 +6,15 @@ import 'rxjs/add/observable/throw';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 import {ApiService} from '../shared/api.service';
+import {Http, Headers, Request, RequestOptions, RequestMethod, Response, RequestOptionsArgs} from '@angular/http';
 
 @Injectable()
 export class PressaServiceService {
 
-  constructor(private api: ApiService) {
+  public needUpdateParent: EventEmitter<any>;
 
+  constructor(private api: ApiService, private http: Http) {
+    this.needUpdateParent = new EventEmitter();
   }
  // PressaAboutUs[]
  getData(): Observable<PressaAboutUs[]>  {
@@ -45,16 +48,17 @@ export class PressaServiceService {
 
     return this.api.post('presa-aboutus', newObj).catch(this.handleError);
   }
+  updateContent(id: string, data: any) {
+    return this.api.put('presa-aboutus', data).catch(this.handleError);
+  }
+
+  deleteObject(data: any) {
+    return this.api.delete('presa-aboutus', data).catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     return res.json() || {};
   }
-
-  // mapPersons(response: Response): PressaAboutUs[] {
-  //   // The response of the API has a results
-  //   // property with the actual results
-  //   return response.json().map(this.toPressaObject);
-  // }
 
   toPressaObject(item: any): PressaAboutUs {
     const person = new PressaAboutUs({
@@ -76,6 +80,9 @@ export class PressaServiceService {
    console.log(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);
     // throw an application level error
     return Observable.throw(error.message || error);
+  }
+  updateParentComponent(obj: any) {
+    this.needUpdateParent.emit(obj);
   }
 
 //   getAll(): Observable<PressaAboutUs[]>{
@@ -112,6 +119,7 @@ export class PressaServiceService {
 //   }
 //
 // }
+
 
 
 }

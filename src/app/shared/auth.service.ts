@@ -9,13 +9,21 @@ export class AuthService {
   storageKey: String = 'contact-manager-jwt';
 
   jwtHelper: JwtHelper = new JwtHelper();
-  user: UserI;
+  private user: UserI;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    console.log('constructor AuthService');
+   if (this.getToken()) {
+     this.initToken();
+   }
+  }
 
   setToken(token: string) {
     localStorage.setItem(this.storageKey.toString(), token);
     this.useJwtHelper();
+    this.initToken();
+  }
+  initToken() {
     const payload = this.getPayloadFromToken();
     console.log('payload.admin ' + payload.admin);
     this.user =  {
@@ -49,6 +57,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    console.log('isLoggedIn() ' + this.getToken());
     return this.getToken() !== null;
   }
 
@@ -58,9 +67,6 @@ export class AuthService {
   }
 
   isItAdmin() {
-    if (!this.user) {
-      return false;
-    }
     return this.user.admin === true ? true : false;
   }
 
@@ -69,6 +75,9 @@ export class AuthService {
       return 'Non authorized';
     }
     return this.user.userName || 'Non authorized';
+  }
+  getUser() {
+    return this.user;
   }
 
 }

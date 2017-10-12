@@ -24,6 +24,7 @@ import { AuthService} from './shared/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import {AuthGuard} from './auth.guard';
+import { ContentEditComponent } from './presa-aboutus/content-edit/content-edit.component';
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -36,7 +37,9 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   ]
 );
 
-export const openUrl: string[] = ['presa-aboutus', 'online-consultation', 'materials', 'feedback-clients', 'preoperative-preparation'];
+export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation', 'materials', 'feedback-clients', 'preoperative-preparation'];
+
+export const openUrlPost: string[] = ['online-consultation', 'feedback-clients'];
 
 @NgModule({
   declarations: [
@@ -55,7 +58,8 @@ export const openUrl: string[] = ['presa-aboutus', 'online-consultation', 'mater
     OfflineConsultationComponent,
     PressaCurObjectComponent,
     LoginComponent,
-    ClientsListComponent
+    ClientsListComponent,
+    ContentEditComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ export const openUrl: string[] = ['presa-aboutus', 'online-consultation', 'mater
   ],
   providers: [
     { provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia },
-    { provide: 'openUrl', useValue: openUrl},
+    { provide: 'openUrlGet', useValue: openUrlGet},
+    { provide: 'openUrlPost', useValue: openUrlPost},
     { provide: ApiService, useClass: ApiService},
     { provide: AuthService, useClass: AuthService},
     { provide: AuthGuard, useClass: AuthGuard}

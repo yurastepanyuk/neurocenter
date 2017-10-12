@@ -1,0 +1,58 @@
+<div>
+  <h2 class="ui header">Новая публикация</h2>
+  <form [formGroup]="myForm"
+        class="ui form"
+        [class.error]="!myForm.valid && myForm.touched"
+        (ngSubmit)="onSubmit(myForm.value)">
+    <div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">
+      <label for="headerTopic">Заголовок</label>
+      <input type="text"
+             id="headerTopic"
+             placeholder="Заголовок"
+             name="заголовок"
+             [formControl]="myForm.get('headerTopic')">
+    </div>
+    <div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">
+      <label for="context">Описание</label>
+      <input type="text"
+             id="context"
+             placeholder="Описание"
+             name="описание"
+             [formControl]="myForm.get('context')">
+    </div>
+
+    <div class="field"
+         [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">
+      <div class="ui sub header">Тип контента</div>
+      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']"
+              >
+        <option value=""></option>
+        <option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>
+        <option value="videoFromGoogleDrive">{{mapKindsOfMedia.get('videoFromGoogleDrive')}}</option>
+        <option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>
+        <option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>
+        <option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>
+      </select>
+    </div>
+
+    <div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">
+      <label for="mediaContent">ID</label>
+      <input type="text"
+             id="mediaContent"
+             placeholder="ID фото/видео/файла из Google Drive"
+             name="idmedia"
+             [formControl]="myForm.get('mediaContent')">
+    </div>
+
+    <div *ngIf="!myForm.valid"
+         class="ui error message">Заполните все поля
+    </div>
+
+    <button type="submit" class="ui button" [routerLink]="['/pressaaboutus']">Опубликовать</button>
+    <button class="ui right floated button" (click)="closeEdit()">
+      Отмена
+    </button>
+  </form>
+</div>
+
+
