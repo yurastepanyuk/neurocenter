@@ -17,39 +17,6 @@ function apiRouter(database) {
     }
   });
 
-  router.get('/presa-aboutus', (req, res) => {
-    const contactsCollection = database.collection('presa-aboutus');
-
-    contactsCollection.find({}).toArray((err, docs) => {
-      return res.json(docs);
-    });
-  });
-
-  router.post('/presaaboutusdelete', (req, res) => {
-    const user = req.body;
-    console.log('/presa-aboutus-delete');
-
-    res.send({delete: 'presa-aboutus-delete ' + req.body});
-
-  });
-
-  router.post('/presa-aboutus', (req, res) => {
-    const user = req.body;
-
-    const contactsCollection = database.collection('presa-aboutus');
-
-    contactsCollection.insertOne(user, (err, r) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error inserting new record.' });
-      }
-
-      const newRecord = r.ops[0];
-
-      return res.status(201).json(newRecord);
-    });
-
-  });
-
   router.post('/authenticate', (req, res) => {
     const user = req.body;
 
@@ -79,6 +46,41 @@ function apiRouter(database) {
       });
   });
 
+  /// presa-aboutus ROUTES ///
+
+  router.get('/presa-aboutus', (req, res) => {
+    const contactsCollection = database.collection('presa-aboutus');
+
+    contactsCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  // router.post('/presaaboutusdelete', (req, res) => {
+  //   const user = req.body;
+  //   console.log('/presa-aboutus-delete');
+  //
+  //   res.send({delete: 'presa-aboutus-delete ' + req.body});
+  //
+  // });
+
+  router.post('/presa-aboutus', (req, res) => {
+    const user = req.body;
+
+    const contactsCollection = database.collection('presa-aboutus');
+
+    contactsCollection.insertOne(user, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
   router.put('/presa-aboutus', (req, res) => {
     const updContent = req.body.data;
     const idObject = req.body.idObject;
@@ -104,7 +106,6 @@ function apiRouter(database) {
 
   });
 
-
   router.delete('/presa-aboutus', (req, res) => {
 
     console.log('delete /presa-aboutus ' + req.body.idObject);
@@ -116,6 +117,73 @@ function apiRouter(database) {
     const obId = new ObjectID(idObject);
 
     contactsCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  /// feedback ROUTES ///
+
+  router.get('/feedback', (req, res) => {
+    const feedbackCollection = database.collection('feedback');
+
+    feedbackCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/feedback', (req, res) => {
+    const feedback = req.body;
+
+    const feedbackCollection = database.collection('feedback');
+
+    feedbackCollection.insertOne(feedback, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/feedback', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const feedbackCollection = database.collection('feedback');
+
+    const obId = new ObjectID(idObject);
+
+    feedbackCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/feedback', (req, res) => {
+
+    console.log('delete /feedback ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const feedbackCollection = database.collection('feedback');
+
+    const obId = new ObjectID(idObject);
+
+    feedbackCollection
       .findOneAndDelete({"_id": obId}, (err, result) => {
         if (err) return res.send(err);
         res.send(result)

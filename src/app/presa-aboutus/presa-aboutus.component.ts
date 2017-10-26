@@ -47,7 +47,7 @@ export class PresaAboutusComponent implements OnInit {
     });
 
     sp.needUpdateParent.subscribe((obj: any) => {
-      console.log(`Subscribe ${obj}`);
+      this.updateView();
     });
   }
 
@@ -121,6 +121,10 @@ export class PresaAboutusComponent implements OnInit {
   closeForm(): void {
     this.viewnewnopic = false;
   }
+  closeEdit(): void {
+    this.viewnewnopic = false;
+    // this.closeForm();
+  }
 
   sortedPressaAboutUs(input: PressaAboutUs[]): PressaAboutUs[] {
     return input.sort((a: PressaAboutUs, b: PressaAboutUs) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated));
@@ -140,5 +144,17 @@ export class PresaAboutusComponent implements OnInit {
     }else {
       return link;
     }
+  }
+
+  getEmptyPresaObject(): PressaAboutUs {
+    return new PressaAboutUs();
+  }
+  getParametresMap() {
+    const parametres: Map< string, any> =  new Map< string, any>();
+    parametres.set('typeContent', 'presa-aboutus');
+    parametres.set('urlMediaContent', '');
+    parametres.set('context', this);
+    parametres.set('view', true);
+    return parametres;
   }
 }

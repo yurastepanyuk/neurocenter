@@ -1,7 +1,10 @@
 export interface UserI {
-  userName: string;
+  username: string;
   admin: boolean;
   role: string;
   enabled: boolean;
+  password: string;
+  email: string;
+  userview: string;
 }
 

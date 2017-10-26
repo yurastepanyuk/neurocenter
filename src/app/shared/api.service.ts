@@ -137,7 +137,7 @@ export class ApiService {
     // could be something more sofisticated
     const error = {
       statusCode: errorRes.status || 500,
-      error: errorRes.json().error || '',
+      error: errorRes.error || '',
       message: errorRes.message
     };
     console.log(error || errorRes.message || errorRes || `There was a problem and we couldn't retrieve your data!`);

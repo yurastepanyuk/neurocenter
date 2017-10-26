@@ -1,30 +1,30 @@
 <div>
   <h2 class="ui header">Новая публикация</h2>
-  <form [formGroup]="myForm"
+  <form [formGroup]="contentForm"
         class="ui form"
-        [class.error]="!myForm.valid && myForm.touched"
-        (ngSubmit)="onSubmit(myForm.value)">
-    <div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">
+        [class.error]="!contentForm.valid && contentForm.touched"
+        (ngSubmit)="onSubmit(contentForm.value)">
+    <div class="field" [class.error]="!contentForm.get('headerTopic').valid && contentForm.get('headerTopic').touched">
       <label for="headerTopic">Заголовок</label>
       <input type="text"
              id="headerTopic"
              placeholder="Заголовок"
              name="заголовок"
-             [formControl]="myForm.get('headerTopic')">
+             [formControl]="contentForm.get('headerTopic')">
     </div>
-    <div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">
+    <div class="field" [class.error]="!contentForm.get('context').valid && contentForm.get('context').touched">
       <label for="context">Описание</label>
       <input type="text"
              id="context"
              placeholder="Описание"
              name="описание"
-             [formControl]="myForm.get('context')">
+             [formControl]="contentForm.get('context')">
     </div>
 
     <div class="field"
-         [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">
+         [class.error]="!contentForm.controls ['typecontent'].valid && contentForm.controls ['typecontent'].touched">
       <div class="ui sub header">Тип контента</div>
-      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']"
+      <select name="typecontent" class="ui fluid search dropdown" [formControl]="contentForm.controls ['typecontent']"
               >
         <option value=""></option>
         <option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>
@@ -35,16 +35,16 @@
       </select>
     </div>
 
-    <div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">
+    <div class="field" [class.error]="!contentForm.get('mediaContent').valid && contentForm.get('mediaContent').touched">
       <label for="mediaContent">ID</label>
       <input type="text"
              id="mediaContent"
              placeholder="ID фото/видео/файла из Google Drive"
              name="idmedia"
-             [formControl]="myForm.get('mediaContent')">
+             [formControl]="contentForm.get('mediaContent')">
     </div>
 
-    <div *ngIf="!myForm.valid"
+    <div *ngIf="!contentForm.valid"
          class="ui error message">Заполните все поля
     </div>
 

@@ -15,6 +15,7 @@ import {OfflineConsultationComponent} from './offline-consultation/offline-consu
 import {LoginComponent} from './login/login.component';
 import {ClientsListComponent} from './clients/clients-list/clients-list.component';
 import {AuthGuard} from './auth.guard';
+import {FeedbackListComponent} from './feedback/feedback-list/feedback-list.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'feedbackclients',
-    component: FeedbackClientsComponent
+    component: FeedbackListComponent
   },
   {
     path: 'pressaaboutus',

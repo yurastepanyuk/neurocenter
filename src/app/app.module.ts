@@ -25,6 +25,10 @@ import { LoginComponent } from './login/login.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import {AuthGuard} from './auth.guard';
 import { ContentEditComponent } from './presa-aboutus/content-edit/content-edit.component';
+import { FeedbackViewComponent } from './feedback/feedback-view/feedback-view.component';
+import { FeedbackEditComponent } from './feedback/feedback-edit/feedback-edit.component';
+import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
+import {PressaServiceService} from './presa-aboutus/pressa-service.service';
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -59,7 +63,10 @@ export const openUrlPost: string[] = ['online-consultation', 'feedback-clients']
     PressaCurObjectComponent,
     LoginComponent,
     ClientsListComponent,
-    ContentEditComponent
+    ContentEditComponent,
+    FeedbackViewComponent,
+    FeedbackEditComponent,
+    FeedbackListComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +82,8 @@ export const openUrlPost: string[] = ['online-consultation', 'feedback-clients']
     { provide: 'openUrlPost', useValue: openUrlPost},
     { provide: ApiService, useClass: ApiService},
     { provide: AuthService, useClass: AuthService},
-    { provide: AuthGuard, useClass: AuthGuard}
+    { provide: AuthGuard, useClass: AuthGuard},
+    { provide: PressaServiceService, useClass: PressaServiceService}
     ],
   bootstrap: [AppComponent]
 })

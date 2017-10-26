@@ -1,0 +1,32 @@
+
+<div class="ui raised very padded text container segment">
+
+  <div (click)="showNewTopic()" *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()" class="ui button">
+    <i class="sticky note outline icon"></i>
+    Новая публикация
+  </div>
+
+  <div class="ui icon message" *ngIf="newFeedbackDto">
+    <i class="notched check green icon"></i>
+    <i class="close icon" (click)="newFeedbackDto = null"></i>
+    <div class="content">
+      <div class="header">
+        New Feedback added!
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewnewnopic == true" class="ui raised segment">
+
+    <!--<app-content-edit [contentObject]="this.getEmptyPresaObject()"-->
+                      <!--[initParametres]="this.getParametresMap()"-->
+                      <!--(addedItem)="closeEdit()"></app-content-edit>-->
+
+  </div>
+
+</div>
+
+
+<div *ngFor="let curFeedback of feedbackList">
+  <app-feedback-view [feedbackObject]="curFeedback"></app-feedback-view>
+</div>

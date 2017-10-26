@@ -1,5 +1,5 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Inject, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {PressaCurObjectComponent} from '../pressa-cur-object/pressa-cur-object.component';
 import {PressaServiceService} from '../pressa-service.service';
 import {PressaAboutUsI} from '../../dtd/pressa-about-us';
@@ -11,26 +11,31 @@ import {PressaAboutUsI} from '../../dtd/pressa-about-us';
 })
 export class ContentEditComponent implements OnInit {
 
-  public myForm: FormGroup;
+  public contentForm: FormGroup;
   public keysKindsOfMedia: string[];
   public _initParametres: Map<string, any>;
-  public addedItem;
+  @Output() public addedItem: EventEmitter<any>;
   errorMessage: String;
 
   typeContent: String;
   _contentObject: any;
   @Input()
   set contentObject(contentObject: any) {
-    this._contentObject = contentObject;
-    console.log('set contentObject ' + contentObject.toString());
-    this.initObject();
+    if ((contentObject) && (contentObject.id)) {
+      this._contentObject = contentObject;
+      console.log('set contentObject ' + contentObject.toString());
+      this.initObject();
+    }
   }
 
   @Input()
   set initParametres(param: Map<string, any>) {
     this._initParametres = param;
-    // this.myForm.get('mediaContent').setValue(param.get('urlMediaContent'));
-    this.myForm.patchValue({mediaContent: param.get('urlMediaContent')});
+    if (this._contentObject) {
+      // Установка значения в input поле html
+      // this.contentForm.get('mediaContent').setValue(param.get('urlMediaContent'));
+      this.contentForm.patchValue({mediaContent: param.get('urlMediaContent')});
+    }
     // this.typeContent = param.get('typeContent');
     this.typeContent = this.getTypeContent();
     // this.view = param.get('view');
@@ -39,12 +44,13 @@ export class ContentEditComponent implements OnInit {
   constructor(fb: FormBuilder,
               @Inject('mapKindsOfMedia') public mapKindsOfMedia: Map<string, string>,
               private sp: PressaServiceService) {
-    this.myForm = fb.group({
+    this.contentForm = fb.group({
       'headerTopic':  ['', Validators.required],
       'context':  ['', Validators.required],
       'typecontent':  ['', Validators.required],
       'mediaContent':  ['', Validators.required]
     });
+    this.addedItem = new EventEmitter();
   }
 
   ngOnInit() {
@@ -52,14 +58,14 @@ export class ContentEditComponent implements OnInit {
     this.keysKindsOfMedia = Array.from(this.mapKindsOfMedia.keys());
   }
 
-  onSubmit() {
+  onSubmit(form: any) {
     if (!this._contentObject) {
       if (this.typeContent === 'presa-aboutus') {
         const newObj: PressaAboutUsI = {
-          headerTopic: this.myForm.get('headerTopic').value,
-          context: this.myForm.get('context').value,
-          typecontent: this.myForm.get('typecontent').value,
-          idcontent: this.parseMediaContentLink(this.myForm.get('mediaContent').value, this.myForm.get('typecontent').value),
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
           dateCreated: new Date().toISOString()
         };
 
@@ -68,18 +74,19 @@ export class ContentEditComponent implements OnInit {
         const addeddItem = this.sp.saveNewPressaAnoutUs(newObj).subscribe( addedItem => {
             console.log('addedItem: ');
             console.log(addedItem);
-            this.addedItem = addedItem;
-            },
+            this.addedItem.emit(addedItem);
+            this.sp.needUpdateParent.emit(addedItem);
+          },
           error => this.errorMessage = <any>error);
       }
     } else {
       const idEdit = this._contentObject.id;
 
       const updObj: PressaAboutUsI = {
-        headerTopic: this.myForm.get('headerTopic').value,
-        context: this.myForm.get('context').value,
-        typecontent: this.myForm.get('typecontent').value,
-        idcontent: this.parseMediaContentLink(this.myForm.get('mediaContent').value, this.myForm.get('typecontent').value),
+        headerTopic: this.contentForm.get('headerTopic').value,
+        context: this.contentForm.get('context').value,
+        typecontent: this.contentForm.get('typecontent').value,
+        idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
         dateCreated: new Date().toISOString()
       };
       const body = {
@@ -90,17 +97,18 @@ export class ContentEditComponent implements OnInit {
       const updatedItem = this.sp.updateContent(idEdit, body).subscribe( updItem => {
           console.log('updItem: ');
           console.log(updItem);
-          this.addedItem = updItem;
+          this.addedItem.emit(updItem);
+          this.sp.needUpdateParent.emit(updItem);
         },
         error => this.errorMessage = <any>error);
     }
   }
 
   private initObject() {
-    this.myForm.patchValue({headerTopic: this._contentObject.headerTopic});
-    this.myForm.patchValue({context: this._contentObject.context});
-    this.myForm.patchValue({typecontent: this._contentObject.typecontent});
-    // this.myForm.patchValue({mediaContent: this._contentObject.mediaContent});
+    this.contentForm.patchValue({headerTopic: this._contentObject.headerTopic});
+    this.contentForm.patchValue({context: this._contentObject.context});
+    this.contentForm.patchValue({typecontent: this._contentObject.typecontent});
+    // this.contentForm.patchValue({mediaContent: this._contentObject.mediaContent});
   }
   closeEdit() {
     console.log('closeEdit() ');
@@ -110,6 +118,8 @@ export class ContentEditComponent implements OnInit {
   getTypeContent(): string {
     if (!this._initParametres) {
       return '';
+    } else if (this._initParametres.get('typeContent')) {
+      return  this._initParametres.get('typeContent');
     } else if (!this._initParametres.get('context')) {
       return '';
     }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {JwtHelper} from 'angular2-jwt';
-import {UserI} from '../dtd/userI';
+import {UserDto} from '../user/user-dto';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +9,7 @@ export class AuthService {
   storageKey: String = 'contact-manager-jwt';
 
   jwtHelper: JwtHelper = new JwtHelper();
-  private user: UserI;
+  private user: UserDto;
 
   constructor(private router: Router) {
     console.log('constructor AuthService');
@@ -26,12 +26,15 @@ export class AuthService {
   initToken() {
     const payload = this.getPayloadFromToken();
     console.log('payload.admin ' + payload.admin);
-    this.user =  {
-      userName: payload.username,
+    this.user =  new UserDto ({
+      id: payload._id,
+      username: payload.username,
       admin: payload.admin,
       role: payload.role || payload.admin === true ? 'admin' : '',
-      enabled: payload.enabled || true
-    };
+      enabled: payload.enabled || true,
+      userview: payload.userview || true,
+      email: payload.email || true
+    });
   }
 
   useJwtHelper() {
@@ -74,7 +77,8 @@ export class AuthService {
     if (!this.user) {
       return 'Non authorized';
     }
-    return this.user.userName || 'Non authorized';
+    return this.user.username || new UserDto({username: 'NonAuthorized',
+        userview: 'Non authorized'});
   }
   getUser() {
     return this.user;

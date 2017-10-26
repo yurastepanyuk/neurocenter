@@ -29,13 +29,13 @@ export class PressaCurObjectComponent implements OnInit {
   isThereDownloadGoogleDrive: boolean;
   isThereFolderGoogleDrive: boolean;
 
-  myForm: FormGroup;
+  // myForm: FormGroup;
 
   constructor(fb: FormBuilder, public sanitizer: DomSanitizer, private ps: PressaServiceService) {
 
-    this.myForm = fb.group({
-      'pressaObject':  [{}]
-    });
+    // this.myForm = fb.group({
+    //   'pressaObject':  [{}]
+    // });
 
   }
 
@@ -108,6 +108,7 @@ export class PressaCurObjectComponent implements OnInit {
     this.ps.deleteObject(delObject).subscribe( deletedObject => {
         console.log('deletedObject: ');
         console.log(deletedObject);
+        this.ps.updateParentComponent(deletedObject);
       },
       error => console.log(<any>error) );
   }

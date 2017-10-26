@@ -1,0 +1,38 @@
+<div class="ui raised very padded text container segment">
+
+  <div *ngIf="isItEditing == true" >
+
+    <!--<app-content-edit [contentObject]="this._pressaObject"-->
+                      <!--[initParametres]="this.getParametresMap()"-->
+                      <!--(addedItem)="closeEdit()"></app-content-edit>-->
+
+  </div>
+
+  <div style="height: 50px;">
+    <div style="float: left">
+      <h2 class="left">{{_feedbackObject.user.userview}}</h2>
+    </div>
+
+    <div style="float: right">
+      <h2>{{this.getDateFeedbackView()}}</h2>
+    </div>
+  </div>
+
+  <div *ngIf="_feedbackObject.context != ''">
+    <div class="column"><p>{{_feedbackObject.context}}</p></div>
+  </div>
+
+  <div  *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()" >
+    <div>
+      <button class="ui icon right floated button" (click)="deleteItem()">
+        <i class="ban icon"></i>
+      </button>
+
+      <button class="ui icon right floated button" (click)="editItem()">
+        <i class="edit icon"></i>
+      </button>
+    </div>
+  </div>
+
+
+</div>

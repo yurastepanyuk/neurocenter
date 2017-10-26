@@ -1,0 +1,5 @@
+[
+  { "user": {"username": "admin", "userview": "Administrator"}, "context": "Спасибо Вам за работу", "dateCreated": "2017-09-26T14:24:41.688Z"},
+  { "user": {"username": "user", "userview": "User U. U."}, "context": "You are the best!", "dateCreated": "2017-10-20T14:24:41.688Z"}
+]
+

@@ -1,4 +1,4 @@
 [
-  { "username": "admin", "admin": true, "password": "asdfghjkl"},
-  { "username": "user", "admin": false, "password": "qwertyuiop"}
+  { "username": "admin", "userview": "Administrator", "admin": true, "email": "111@gmail.com", "role": "admin", "enabled": true, "password": "asdfghjkl"},
+  { "username": "user", "userview": "User U. U.", "admin": false, "email": "222@gmail.com", "role": "admin", "enabled": true,"password": "qwertyuiop"}
 ]

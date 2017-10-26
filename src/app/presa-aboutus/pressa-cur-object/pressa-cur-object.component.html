@@ -2,81 +2,11 @@
 
   <div *ngIf="isItEditing == true" >
 
-    <app-content-edit [contentObject]="this._pressaObject" [initParametres]="this.getParametresMap()"></app-content-edit>
-    <!--->
-    <!--class="ui raised very padded text container segment" -->
-
-    <!--<div (click)="showNewTopic()" *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()" class="ui button">-->
-      <!--<i class="sticky note outline icon"></i>-->
-      <!--Новая публикация-->
-    <!--</div>-->
-
-    <!--<div class="ui icon message" *ngIf="newPressaAboutUs">-->
-      <!--<i class="notched check green icon"></i>-->
-      <!--<i class="close icon" (click)="newPressaAboutUs = null"></i>-->
-      <!--<div class="content">-->
-        <!--<div class="header">-->
-          <!--New content added!-->
-        <!--</div>-->
-        <!--<p>Тема: {{newPressaAboutUs.headerTopic}}</p>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--<div>-->
-      <!--<h2 class="ui header">Новая публикация</h2>-->
-      <!--<form [formGroup]="myForm" class="ui form" [class.error]="!myForm.valid && myForm.touched">-->
-      <!--&lt;!&ndash;(ngSubmit)="onSubmit(myForm.value)"&ndash;&gt;-->
-
-        <!--<div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">-->
-          <!--<label for="headerTopic">Заголовок</label>-->
-          <!--<input type="text"-->
-                 <!--id="headerTopic"-->
-                 <!--placeholder="Заголовок"-->
-                 <!--name="заголовок"-->
-                 <!--[formControl]="myForm.get('headerTopic')"ngModel>-->
-        <!--</div>-->
-        <!--<div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">-->
-          <!--<label for="context">Описание</label>-->
-          <!--<input type="text"-->
-                 <!--id="context"-->
-                 <!--placeholder="Описание"-->
-                 <!--name="описание"-->
-                 <!--[formControl]="myForm.get('context')">-->
-        <!--</div>-->
-
-        <!--<div class="field" [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">-->
-          <!--<div class="ui sub header">Тип контента</div>-->
-          <!--<select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']" ngModel>-->
-            <!--<option value=""></option>-->
-            <!--&lt;!&ndash;<option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option value="videoFromGoogleDrive">{{mapKindsOfMedia.get('videoFromGoogleDrive')}}</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>&ndash;&gt;-->
-          <!--</select>-->
-        <!--</div>-->
-
-        <!--<div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">-->
-          <!--<label for="mediaContent">ID</label>-->
-          <!--<input type="text"-->
-                 <!--id="mediaContent"-->
-                 <!--placeholder="ID фото/видео/файла из Google Drive"-->
-                 <!--name="idmedia"-->
-                 <!--[formControl]="myForm.get('mediaContent')" ngModel>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="!myForm.valid"-->
-             <!--class="ui error message">Заполните все поля</div>-->
-
-        <!--<button type="submit" class="ui button">Опубликовать</button>-->
-        <!--<button class="ui right floated button" (click)="closeEdit()" [routerLink]="['/pressaaboutus']">-->
-          <!--Закрыть-->
-        <!--</button>-->
-      <!--</form>-->
-    <!--</div>-->
+    <app-content-edit [contentObject]="this._pressaObject"
+                      [initParametres]="this.getParametresMap()"
+                      (addedItem)="closeEdit()"></app-content-edit>
 
   </div>
-
 
   <!--<div  *ngIf="isItEditing == false">-->
     <h2 class="ui header">{{_pressaObject.headerTopic}}</h2>

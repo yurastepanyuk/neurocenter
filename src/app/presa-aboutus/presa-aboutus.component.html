@@ -17,58 +17,66 @@
     </div>
   </div>
 
-  <div *ngIf="viewnewnopic" class="ui raised segment" >
-    <h2 class="ui header">Новая публикация</h2>
-    <form [formGroup]="myForm"
-          (ngSubmit)="onSubmit(myForm.value)"
-          class="ui form"
-          [class.error]="!myForm.valid && myForm.touched">
-      <div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">
-        <label for="headerTopic">Заголовок</label>
-        <input type="text"
-               id="headerTopic"
-               placeholder="Заголовок"
-               name="заголовок"
-               [formControl]="myForm.get('headerTopic')"ngModel>
-      </div>
-      <div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">
-        <label for="context">Описание</label>
-        <input type="text"
-               id="context"
-               placeholder="Описание"
-               name="описание"
-               [formControl]="myForm.get('context')">
-      </div>
+  <!--<div *ngIf="viewnewnopic" class="ui raised segment" >-->
+    <!--<h2 class="ui header">Новая публикация</h2>-->
+    <!--<form [formGroup]="myForm"-->
+          <!--(ngSubmit)="onSubmit(myForm.value)"-->
+          <!--class="ui form"-->
+          <!--[class.error]="!myForm.valid && myForm.touched">-->
+      <!--<div class="field" [class.error]="!myForm.get('headerTopic').valid && myForm.get('headerTopic').touched">-->
+        <!--<label for="headerTopic">Заголовок</label>-->
+        <!--<input type="text"-->
+               <!--id="headerTopic"-->
+               <!--placeholder="Заголовок"-->
+               <!--name="заголовок"-->
+               <!--[formControl]="myForm.get('headerTopic')"ngModel>-->
+      <!--</div>-->
+      <!--<div class="field" [class.error]="!myForm.get('context').valid && myForm.get('context').touched">-->
+        <!--<label for="context">Описание</label>-->
+        <!--<input type="text"-->
+               <!--id="context"-->
+               <!--placeholder="Описание"-->
+               <!--name="описание"-->
+               <!--[formControl]="myForm.get('context')">-->
+      <!--</div>-->
 
-      <div class="field" [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">
-      <div class="ui sub header">Тип контента</div>
-      <select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']" ngModel>
-        <option value=""></option>
-        <option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>
-        <option value="videoFromGoogleDrive">{{mapKindsOfMedia.get('videoFromGoogleDrive')}}</option>
-        <option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>
-        <option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>
-        <option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>
-      </select>
-      </div>
+      <!--<div class="field" [class.error]="!myForm.controls ['typecontent'].valid && myForm.controls ['typecontent'].touched">-->
+      <!--<div class="ui sub header">Тип контента</div>-->
+      <!--<select name="typecontent" class="ui fluid search dropdown" [formControl]="myForm.controls ['typecontent']" ngModel>-->
+        <!--<option value=""></option>-->
+        <!--<option value="videoFromYouTube">{{mapKindsOfMedia.get('videoFromYouTube')}}</option>-->
+        <!--<option value="videoFromGoogleDrive">{{mapKindsOfMedia.get('videoFromGoogleDrive')}}</option>-->
+        <!--<option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>-->
+        <!--<option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>-->
+        <!--<option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>-->
+      <!--</select>-->
+      <!--</div>-->
 
-      <div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">
-        <label for="mediaContent">ID</label>
-        <input type="text"
-               id="mediaContent"
-               placeholder="ID фото/видео/файла из Google Drive"
-               name="idmedia"
-               [formControl]="myForm.get('mediaContent')" ngModel>
-      </div>
+      <!--<div class="field" [class.error]="!myForm.get('mediaContent').valid && myForm.get('mediaContent').touched">-->
+        <!--<label for="mediaContent">ID</label>-->
+        <!--<input type="text"-->
+               <!--id="mediaContent"-->
+               <!--placeholder="ID фото/видео/файла из Google Drive"-->
+               <!--name="idmedia"-->
+               <!--[formControl]="myForm.get('mediaContent')" ngModel>-->
+      <!--</div>-->
 
-      <div *ngIf="!myForm.valid"
-           class="ui error message">Заполните все поля</div>
+      <!--<div *ngIf="!myForm.valid"-->
+           <!--class="ui error message">Заполните все поля</div>-->
 
-      <button type="submit" class="ui button">Опубликовать</button>
-      <button class="ui right floated button" (click)="closeForm()" [routerLink]="['/pressaaboutus']">
-        Закрыть
-      </button>
-    </form>
+      <!--<button type="submit" class="ui button">Опубликовать</button>-->
+      <!--<button class="ui right floated button" (click)="closeForm()" [routerLink]="['/pressaaboutus']">-->
+        <!--Закрыть-->
+      <!--</button>-->
+    <!--</form>-->
+  <!--</div>-->
+
+  <div *ngIf="viewnewnopic == true" class="ui raised segment">
+
+    <app-content-edit [contentObject]="this.getEmptyPresaObject()"
+                      [initParametres]="this.getParametresMap()"
+                      (addedItem)="closeEdit()"></app-content-edit>
+
   </div>
 
 </div>
