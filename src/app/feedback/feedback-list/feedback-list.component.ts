@@ -67,4 +67,15 @@ import {AuthService} from '../../shared/auth.service';
     return new FeedbackDto();
   }
 
+  getParametresMap() {
+    const parametres: Map< string, any> =  new Map< string, any>();
+    parametres.set('context', this);
+    parametres.set('view', true);
+    return parametres;
+  }
+
+  getEmptyFeedback() {
+    return new FeedbackDto();
+  }
+
 }

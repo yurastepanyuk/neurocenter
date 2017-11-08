@@ -32,8 +32,8 @@ export class AuthService {
       admin: payload.admin,
       role: payload.role || payload.admin === true ? 'admin' : '',
       enabled: payload.enabled || true,
-      userview: payload.userview || true,
-      email: payload.email || true
+      userview: payload.userview,
+      email: payload.email
     });
   }
 
@@ -56,11 +56,14 @@ export class AuthService {
   }
 
   getToken() {
+    console.log(
+      localStorage.getItem(this.storageKey.toString())
+    );
     return localStorage.getItem(this.storageKey.toString());
   }
 
   isLoggedIn() {
-    console.log('isLoggedIn() ' + this.getToken());
+    console.log('isLoggedIn() ', this.getToken());
     return this.getToken() !== null;
   }
 

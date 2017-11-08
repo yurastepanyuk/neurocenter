@@ -28,6 +28,7 @@ export class PressaCurObjectComponent implements OnInit {
   isItVideoYoutube: boolean;
   isThereDownloadGoogleDrive: boolean;
   isThereFolderGoogleDrive: boolean;
+  isItHtmlContent: boolean;
 
   // myForm: FormGroup;
 
@@ -61,6 +62,8 @@ export class PressaCurObjectComponent implements OnInit {
       this.isThereDownloadGoogleDrive = true;
     } else if (this._pressaObject.typecontent === 'folderFromGoogleDrive') {
       this.isThereFolderGoogleDrive = true;
+    } else if (this._pressaObject.typecontent === 'htmlContent') {
+      this.isItHtmlContent = true;
     }
   }
 

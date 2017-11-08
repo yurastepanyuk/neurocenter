@@ -14,11 +14,13 @@
     </div>
     <div class="field" [class.error]="!contentForm.get('context').valid && contentForm.get('context').touched">
       <label for="context">Описание</label>
-      <input type="text"
+      <textarea type="text"
              id="context"
+             rows="4"
              placeholder="Описание"
              name="описание"
-             [formControl]="contentForm.get('context')">
+                [formControl]="contentForm.get('context')">
+      </textarea>
     </div>
 
     <div class="field"
@@ -32,6 +34,7 @@
         <option value="imageFromGoogleDrive">{{mapKindsOfMedia.get('imageFromGoogleDrive')}}</option>
         <option value="fileFromGoogleDrive">{{mapKindsOfMedia.get('fileFromGoogleDrive')}}</option>
         <option value="folderFromGoogleDrive">{{mapKindsOfMedia.get('folderFromGoogleDrive')}}</option>
+        <option value="htmlContent">{{mapKindsOfMedia.get('htmlContent')}}</option>
       </select>
     </div>
 
@@ -42,13 +45,15 @@
              placeholder="ID фото/видео/файла из Google Drive"
              name="idmedia"
              [formControl]="contentForm.get('mediaContent')">
+      <!--<textarea ></textarea>-->
+
     </div>
 
     <div *ngIf="!contentForm.valid"
          class="ui error message">Заполните все поля
     </div>
 
-    <button type="submit" class="ui button" [routerLink]="['/pressaaboutus']">Опубликовать</button>
+    <button type="submit" class="ui button" [routerLink]="[getRoutePath()]">Опубликовать</button>
     <button class="ui right floated button" (click)="closeEdit()">
       Отмена
     </button>

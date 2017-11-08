@@ -1,3 +1,26 @@
-<p>
-  feedback-edit works!
-</p>
+<div>
+  <h2 class="ui header">Новый отзыв</h2>
+  <form [formGroup]="feedbackForm"
+        class="ui form"
+        [class.error]="!feedbackForm.valid && feedbackForm.touched"
+        (ngSubmit)="onSubmit()">
+
+    <div class="field" [class.error]="!feedbackForm.get('context').valid && feedbackForm.get('context').touched">
+      <label for="context">Сообщение</label>
+      <input type="text"
+             id="context"
+             placeholder="Сообщение"
+             name="Сообщение"
+             [formControl]="feedbackForm.controls['context']">
+    </div>
+
+    <div *ngIf="!feedbackForm.valid"
+         class="ui error message">Заполните все поля
+    </div>
+
+    <button type="submit" class="ui button" [routerLink]="['/feedbackclients']">Опубликовать</button>
+    <button class="ui right floated button" (click)="closeEdit()">
+      Отмена
+    </button>
+  </form>
+</div>

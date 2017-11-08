@@ -34,7 +34,11 @@ function apiRouter(database) {
 
         const payload = {
           username: result.username,
-          admin: result.admin
+          admin: result.admin,
+          role: result.role,
+          enabled: result.enabled,
+          userview: result.userview,
+          email: result.email
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '4h' });
@@ -126,18 +130,18 @@ function apiRouter(database) {
 
   /// feedback ROUTES ///
 
-  router.get('/feedback', (req, res) => {
-    const feedbackCollection = database.collection('feedback');
+  router.get('/feedback-clients', (req, res) => {
+    const feedbackCollection = database.collection('feedback-clients');
 
     feedbackCollection.find({}).toArray((err, docs) => {
       return res.json(docs);
     });
   });
 
-  router.post('/feedback', (req, res) => {
+  router.post('/feedback-clients', (req, res) => {
     const feedback = req.body;
 
-    const feedbackCollection = database.collection('feedback');
+    const feedbackCollection = database.collection('feedback-clients');
 
     feedbackCollection.insertOne(feedback, (err, r) => {
       if (err) {
@@ -151,11 +155,11 @@ function apiRouter(database) {
 
   });
 
-  router.put('/feedback', (req, res) => {
+  router.put('/feedback-clients', (req, res) => {
     const updContent = req.body.data;
     const idObject = req.body.idObject;
 
-    const feedbackCollection = database.collection('feedback');
+    const feedbackCollection = database.collection('feedback-clients');
 
     const obId = new ObjectID(idObject);
 
@@ -173,13 +177,13 @@ function apiRouter(database) {
 
   });
 
-  router.delete('/feedback', (req, res) => {
+  router.delete('/feedback-clients', (req, res) => {
 
     console.log('delete /feedback ' + req.body.idObject);
 
     const idObject = req.body.idObject;
 
-    const feedbackCollection = database.collection('feedback');
+    const feedbackCollection = database.collection('feedback-clients');
 
     const obId = new ObjectID(idObject);
 
@@ -191,6 +195,206 @@ function apiRouter(database) {
 
   });
 
+/// TEAM-CLINIC ROUTES ///
+
+  router.get('/team-clinic', (req, res) => {
+    const teamclinicCollection = database.collection('team-clinic');
+
+    teamclinicCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/team-clinic', (req, res) => {
+    const teamclinic = req.body;
+
+    const teamclinicCollection = database.collection('team-clinic');
+
+    teamclinicCollection.insertOne(teamclinic, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/team-clinic', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const teamclinicCollection = database.collection('team-clinic');
+
+    const obId = new ObjectID(idObject);
+
+    teamclinicCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/team-clinic', (req, res) => {
+
+    console.log('delete /team-clinic ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const teamclinicCollection = database.collection('team-clinic');
+
+    const obId = new ObjectID(idObject);
+
+    teamclinicCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  /// ABOUT-CLINIC ROUTES ///
+
+  router.get('/about-clinic', (req, res) => {
+    const aboutClinicCollection = database.collection('about-clinic');
+
+    aboutClinicCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/about-clinic', (req, res) => {
+    const aboutClinic = req.body;
+
+    const aboutClinicCollection = database.collection('about-clinic');
+
+    aboutClinicCollection.insertOne(aboutClinic, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/about-clinic', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const aboutClinicCollection = database.collection('about-clinic');
+
+    const obId = new ObjectID(idObject);
+
+    aboutClinicCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/about-clinic', (req, res) => {
+
+    console.log('delete /about-clinic ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const aboutClinicCollection = database.collection('about-clinic');
+
+    const obId = new ObjectID(idObject);
+
+    aboutClinicCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  // PREOPERATIVE-PREPARATION ROUTES //
+
+  router.get('/preoperative-preparation', (req, res) => {
+    const aboutClinicCollection = database.collection('preoperative-preparation');
+
+    preoperativeCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/preoperative-preparation', (req, res) => {
+    const preoperative = req.body;
+
+    const preoperativeCollection = database.collection('preoperative-preparation');
+
+    preoperativeCollection.insertOne(aboutClinic, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/preoperative-preparation', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const preoperativeCollection = database.collection('preoperative-preparation');
+
+    const obId = new ObjectID(idObject);
+
+    preoperativeCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/preoperative-preparation', (req, res) => {
+
+    console.log('delete /preoperative-preparation ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const preoperativeCollection = database.collection('preoperative-preparation');
+
+    const obId = new ObjectID(idObject);
+
+    preoperativeCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
 
   return router;
 }

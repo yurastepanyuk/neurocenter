@@ -31,7 +31,7 @@ export class FeedbackViewComponent implements OnInit {
   }
 
   initObject(): void {
-    console.log('initObject: ', this.feedbackObject);
+    console.log('initObject: ', this._feedbackObject);
   }
 
   editItem() {
@@ -57,7 +57,6 @@ export class FeedbackViewComponent implements OnInit {
 
   getParametresMap() {
     const parametres: Map< string, any> =  new Map< string, any>();
-    parametres.set('typeContent', 'feedback');
     parametres.set('context', this);
     parametres.set('view', true);
     return parametres;
@@ -67,5 +66,6 @@ export class FeedbackViewComponent implements OnInit {
     // const curDate = new Date(this._feedbackObject.dateCreated);
     return this.curDatePipe.transform(this._feedbackObject.dateCreated, 'dd/MM/yyyy HH:mm');
   }
+
 
 }

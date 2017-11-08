@@ -19,7 +19,7 @@ export class FeedbackService {
     const searchParam = new URLSearchParams();
     searchParam.set('limit', '25');
 
-    const pressadata$ = this.api.get('feedback').map((data: any) => {
+    const pressadata$ = this.api.get('feedback-clients').map((data: any) => {
       return data.map(this.toFeedback);
     } );
 
@@ -33,14 +33,14 @@ export class FeedbackService {
   }
 
   saveFeedback(newObj: FeedbackI): Observable<FeedbackDto> {
-    return this.api.post('feedback', newObj).catch(this.handleError);
+    return this.api.post('feedback-clients', JSON.stringify(newObj)).catch(this.handleError);
   }
   updateContent(id: string, data: any) {
-    return this.api.put('feedback', data).catch(this.handleError);
+    return this.api.put('feedback-clients', data).catch(this.handleError);
   }
 
   deleteObject(data: any) {
-    return this.api.delete('feedback', data).catch(this.handleError);
+    return this.api.delete('feedback-clients', data).catch(this.handleError);
   }
 
   handleError(error: Response | any) {

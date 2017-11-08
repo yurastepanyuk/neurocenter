@@ -1,6 +1,8 @@
 export interface ContentEditI {
+  id?: string;
   headerTopic: string;
   context: string;
   typecontent: string;
-  mediaContent: string;
+  idcontent: string;
+  dateCreated: string;
 }

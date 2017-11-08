@@ -1,0 +1,47 @@
+<div class="ui raised very padded text container segment">
+
+  <h2 class="ui header">{{_teamObject.headerTopic}}</h2>
+
+  <div *ngIf="isThereMedia">
+
+    <div *ngIf="isItImgGoogleDrive">
+      <img class="ui centered medium image" [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'>
+    </div>
+
+    <div *ngIf="isItVideoGoogleDrive">
+      <iframe width="100%" height="320px"
+              [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'></iframe>
+    </div>
+
+    <div *ngIf="isItVideoYoutube">
+      <iframe width="100%" height="320px" class="videoyoutube"
+              [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())' frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <div *ngIf="_teamObject.context != ''">
+    <div class="column"><p>{{_teamObject.context}}</p></div>
+  </div>
+
+  <div *ngIf="isThereDownloadGoogleDrive">
+    <button class="ui right basic button">
+      <a href='{{getUrlContent()}}'> <i class="download icon" aria-hidden="true"></i>
+        Скачать (from Google Drive)
+      </a>
+    </button>
+  </div>
+
+  <div *ngIf="isThereFolderGoogleDrive">
+    <iframe [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'
+            style="width:100%; height:600px; border:0;"></iframe>
+  </div>
+
+  <div  *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()">
+    <button class="ui icon right floated button" (click)="deleteItem()">
+      <i class="ban icon"></i>
+    </button>
+  </div>
+
+</div>

@@ -3,6 +3,11 @@ import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {PressaCurObjectComponent} from '../pressa-cur-object/pressa-cur-object.component';
 import {PressaServiceService} from '../pressa-service.service';
 import {PressaAboutUsI} from '../../dtd/pressa-about-us';
+import {ContentEditI} from './content-edit-i';
+import {TeamClinicViewComponent} from '../../team-clinic/team-clinic-view/team-clinic-view.component';
+import {TeamClinicService} from '../../team-clinic/team-clinic.service';
+import {AboutClinicService} from '../../about-clinic/about-clinic.service';
+import {AboutClinicViewComponent} from '../../about-clinic/about-clinic-view/about-clinic-view.component';
 
 @Component({
   selector: 'app-content-edit',
@@ -43,7 +48,9 @@ export class ContentEditComponent implements OnInit {
 
   constructor(fb: FormBuilder,
               @Inject('mapKindsOfMedia') public mapKindsOfMedia: Map<string, string>,
-              private sp: PressaServiceService) {
+              private sp: PressaServiceService,
+              private ts: TeamClinicService,
+              private acs: AboutClinicService) {
     this.contentForm = fb.group({
       'headerTopic':  ['', Validators.required],
       'context':  ['', Validators.required],
@@ -61,6 +68,7 @@ export class ContentEditComponent implements OnInit {
   onSubmit(form: any) {
     if (!this._contentObject) {
       if (this.typeContent === 'presa-aboutus') {
+        console.log(this.contentForm);
         const newObj: PressaAboutUsI = {
           headerTopic: this.contentForm.get('headerTopic').value,
           context: this.contentForm.get('context').value,
@@ -76,6 +84,42 @@ export class ContentEditComponent implements OnInit {
             console.log(addedItem);
             this.addedItem.emit(addedItem);
             this.sp.needUpdateParent.emit(addedItem);
+          },
+          error => this.errorMessage = <any>error);
+      } else if (this.typeContent === 'team-clinic') {
+        const newObj: ContentEditI = {
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
+          dateCreated: new Date().toISOString()
+        };
+
+        console.log('you want this obj to save into DB :', newObj);
+
+        const addeddItem = this.ts.saveNewTeamClinic(newObj).subscribe( addedItem => {
+            console.log('addedItem: ');
+            console.log(addedItem);
+            this.addedItem.emit(addedItem);
+            this.ts.needUpdateParent.emit(addedItem);
+          },
+          error => this.errorMessage = <any>error);
+      } else if (this.typeContent === 'about-clinic') {
+        const newObj: ContentEditI = {
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
+          dateCreated: new Date().toISOString()
+        };
+
+        console.log('you want this obj to save into DB :', newObj);
+
+        const addeddItem = this.acs.saveNewAboutClinic(newObj).subscribe( addedItem => {
+            console.log('addedItem: ');
+            console.log(addedItem);
+            this.addedItem.emit(addedItem);
+            this.acs.needUpdateParent.emit(addedItem);
           },
           error => this.errorMessage = <any>error);
       }
@@ -128,6 +172,10 @@ export class ContentEditComponent implements OnInit {
     // console.log(' cont instanceof  PressaCurObjectComponent ' + (cont instanceof  PressaCurObjectComponent));
     if (cont instanceof  PressaCurObjectComponent) {
       return 'presa-aboutus';
+    } else if (cont instanceof  TeamClinicViewComponent) {
+      return 'team-clinic';
+    } else if (cont instanceof  AboutClinicViewComponent) {
+      return 'about-clinic';
     }
     return '';
   }
@@ -145,6 +193,16 @@ export class ContentEditComponent implements OnInit {
     }else {
       return link;
     }
+  }
+  getRoutePath() {
+    if (this.typeContent === 'presa-aboutus') {
+      return '/pressaaboutus';
+    } else if (this.typeContent === 'team-clinic') {
+      return '/teamclinic';
+    } else if (this.typeContent === 'about-clinic') {
+      return '/aboutclinic';
+    }
+    return '/pressaaboutus';
   }
 
 }

@@ -1,9 +1,9 @@
 
-<div class="ui raised very padded text container segment">
+<div class="ui raised very padded text container segment" *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()">
 
   <div (click)="showNewTopic()" *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()" class="ui button">
     <i class="sticky note outline icon"></i>
-    Новая публикация
+    Новый отзыв
   </div>
 
   <div class="ui icon message" *ngIf="newFeedbackDto">
@@ -18,9 +18,9 @@
 
   <div *ngIf="viewnewnopic == true" class="ui raised segment">
 
-    <!--<app-content-edit [contentObject]="this.getEmptyPresaObject()"-->
-                      <!--[initParametres]="this.getParametresMap()"-->
-                      <!--(addedItem)="closeEdit()"></app-content-edit>-->
+    <app-feedback-edit [contentObject]="this.getEmptyFeedback()"
+                      [initParametres]="this.getParametresMap()"
+                      (addedItem)="closeEdit()"></app-feedback-edit>
 
   </div>
 

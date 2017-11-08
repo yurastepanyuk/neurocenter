@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {ContactsOurComponent} from './contacts-our/contacts-our.component';
 import {MainCenterComponent} from './main-center/main-center.component';
 import {AboutClinicComponent} from './about-clinic/about-clinic.component';
-import {TeamClinicComponent} from './team-clinic/team-clinic.component';
-import {FeedbackClientsComponent} from './feedback-clients/feedback-clients.component';
 import {PresaAboutusComponent} from './presa-aboutus/presa-aboutus.component';
 import {OnlineConsultationComponent} from './online-consultation/online-consultation.component';
 import {PreoperativePreparationComponent} from './preoperative-preparation/preoperative-preparation.component';
@@ -16,6 +14,7 @@ import {LoginComponent} from './login/login.component';
 import {ClientsListComponent} from './clients/clients-list/clients-list.component';
 import {AuthGuard} from './auth.guard';
 import {FeedbackListComponent} from './feedback/feedback-list/feedback-list.component';
+import {TeamClinicListComponent} from './team-clinic/team-clinic-list/team-clinic-list.component';
 
 const routes: Routes = [
   {
@@ -37,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'teamclinic',
-    component: TeamClinicComponent
+    component: TeamClinicListComponent
   },
   {
     path: 'feedbackclients',

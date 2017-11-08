@@ -33,7 +33,13 @@
     </div>
 
     <div *ngIf="_pressaObject.context != ''">
-      <div class="column"><p>{{_pressaObject.context}}</p></div>
+      <div *ngIf="isItHtmlContent">
+        <div class="column" [innerHTML]="_pressaObject.context | safeHtml"><p></p></div>
+      </div>
+
+      <div *ngIf="!isItHtmlContent">
+        <div class="column"><p>{{_pressaObject.context}}</p></div>
+      </div>
     </div>
 
     <div *ngIf="isThereDownloadGoogleDrive">

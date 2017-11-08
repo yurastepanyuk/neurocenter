@@ -9,8 +9,6 @@ import { MenuTopComponent } from './menu-top/menu-top.component';
 import { ContactsOurComponent } from './contacts-our/contacts-our.component';
 import { MainCenterComponent } from './main-center/main-center.component';
 import { AboutClinicComponent } from './about-clinic/about-clinic.component';
-import { TeamClinicComponent } from './team-clinic/team-clinic.component';
-import { FeedbackClientsComponent } from './feedback-clients/feedback-clients.component';
 import { PresaAboutusComponent } from './presa-aboutus/presa-aboutus.component';
 import { OnlineConsultationComponent } from './online-consultation/online-consultation.component';
 import { PreoperativePreparationComponent } from './preoperative-preparation/preoperative-preparation.component';
@@ -29,6 +27,14 @@ import { FeedbackViewComponent } from './feedback/feedback-view/feedback-view.co
 import { FeedbackEditComponent } from './feedback/feedback-edit/feedback-edit.component';
 import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
 import {PressaServiceService} from './presa-aboutus/pressa-service.service';
+import { TeamClinicListComponent } from './team-clinic/team-clinic-list/team-clinic-list.component';
+import { TeamClinicViewComponent } from './team-clinic/team-clinic-view/team-clinic-view.component';
+import { TeamClinicEditComponent } from './team-clinic/team-clinic-edit/team-clinic-edit.component';
+import {TeamClinicService} from './team-clinic/team-clinic.service';
+import {ContentService} from './shared/content.service';
+import { SafeHtmlPipe } from './utils/safe-html.pipe';
+import { AboutClinicViewComponent } from './about-clinic/about-clinic-view/about-clinic-view.component';
+import {AboutClinicService} from "./about-clinic/about-clinic.service";
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -37,13 +43,15 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     ['imageFromGoogleDrive', 'Image from Google Drive'],
     ['fileFromGoogleDrive', 'File from Google Drive'],
     ['folderFromGoogleDrive', 'Folder from Google Drive'],
+    ['htmlContent', 'HTML content'],
     ['otherContent', 'Other content']
   ]
 );
 
-export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation', 'materials', 'feedback-clients', 'preoperative-preparation'];
+export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation',
+  'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic', 'about-clinic'];
 
-export const openUrlPost: string[] = ['online-consultation', 'feedback-clients'];
+export const openUrlPost: string[] = ['online-consultation', 'xxx'];
 
 @NgModule({
   declarations: [
@@ -52,8 +60,6 @@ export const openUrlPost: string[] = ['online-consultation', 'feedback-clients']
     ContactsOurComponent,
     MainCenterComponent,
     AboutClinicComponent,
-    TeamClinicComponent,
-    FeedbackClientsComponent,
     PresaAboutusComponent,
     OnlineConsultationComponent,
     PreoperativePreparationComponent,
@@ -66,7 +72,12 @@ export const openUrlPost: string[] = ['online-consultation', 'feedback-clients']
     ContentEditComponent,
     FeedbackViewComponent,
     FeedbackEditComponent,
-    FeedbackListComponent
+    FeedbackListComponent,
+    TeamClinicListComponent,
+    TeamClinicViewComponent,
+    TeamClinicEditComponent,
+    SafeHtmlPipe,
+    AboutClinicViewComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +94,10 @@ export const openUrlPost: string[] = ['online-consultation', 'feedback-clients']
     { provide: ApiService, useClass: ApiService},
     { provide: AuthService, useClass: AuthService},
     { provide: AuthGuard, useClass: AuthGuard},
-    { provide: PressaServiceService, useClass: PressaServiceService}
+    { provide: PressaServiceService, useClass: PressaServiceService},
+    { provide: TeamClinicService, useClass: TeamClinicService},
+    { provide: ContentService, useClass: ContentService},
+    { provide: AboutClinicService, useClass: AboutClinicService}
     ],
   bootstrap: [AppComponent]
 })
