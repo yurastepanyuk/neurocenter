@@ -11,8 +11,6 @@ import { MainCenterComponent } from './main-center/main-center.component';
 import { AboutClinicComponent } from './about-clinic/about-clinic.component';
 import { PresaAboutusComponent } from './presa-aboutus/presa-aboutus.component';
 import { OnlineConsultationComponent } from './online-consultation/online-consultation.component';
-import { PreoperativePreparationComponent } from './preoperative-preparation/preoperative-preparation.component';
-import { MaterialsComponent } from './materials/materials.component';
 import { UserComponent } from './user/user.component';
 import { OfflineConsultationComponent } from './offline-consultation/offline-consultation.component';
 import { PressaModuleModule} from './presa-aboutus/pressa-module/pressa-module.module';
@@ -34,7 +32,13 @@ import {TeamClinicService} from './team-clinic/team-clinic.service';
 import {ContentService} from './shared/content.service';
 import { SafeHtmlPipe } from './utils/safe-html.pipe';
 import { AboutClinicViewComponent } from './about-clinic/about-clinic-view/about-clinic-view.component';
-import {AboutClinicService} from "./about-clinic/about-clinic.service";
+import {AboutClinicService} from './about-clinic/about-clinic.service';
+import { PreoperativePreparationListComponent } from './preoperative-preparation/preoperative-preparation-list/preoperative-preparation-list.component';
+import { PreoperativePreparationViewComponent } from './preoperative-preparation/preoperative-preparation-view/preoperative-preparation-view.component';
+import {PreoperativePreparationService} from './preoperative-preparation/preoperative-preparation.service';
+import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
+import { MaterialsViewComponent } from './materials/materials-view/materials-view.component';
+import {MaterialsService} from './materials/materials.service';
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -51,7 +55,7 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
 export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation',
   'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic', 'about-clinic'];
 
-export const openUrlPost: string[] = ['online-consultation', 'xxx'];
+export const openUrlPost: string[] = ['online-consultation', 'xxx', 'feedback-clients'];
 
 @NgModule({
   declarations: [
@@ -62,8 +66,6 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx'];
     AboutClinicComponent,
     PresaAboutusComponent,
     OnlineConsultationComponent,
-    PreoperativePreparationComponent,
-    MaterialsComponent,
     UserComponent,
     OfflineConsultationComponent,
     PressaCurObjectComponent,
@@ -77,7 +79,11 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx'];
     TeamClinicViewComponent,
     TeamClinicEditComponent,
     SafeHtmlPipe,
-    AboutClinicViewComponent
+    AboutClinicViewComponent,
+    PreoperativePreparationListComponent,
+    PreoperativePreparationViewComponent,
+    MaterialsListComponent,
+    MaterialsViewComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +103,9 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx'];
     { provide: PressaServiceService, useClass: PressaServiceService},
     { provide: TeamClinicService, useClass: TeamClinicService},
     { provide: ContentService, useClass: ContentService},
-    { provide: AboutClinicService, useClass: AboutClinicService}
+    { provide: AboutClinicService, useClass: AboutClinicService},
+    { provide: PreoperativePreparationService, useClass: PreoperativePreparationService},
+    { provide: MaterialsService, useClass: MaterialsService}
     ],
   bootstrap: [AppComponent]
 })

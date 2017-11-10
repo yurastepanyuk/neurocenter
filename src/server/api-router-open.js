@@ -44,9 +44,19 @@ function apiRouterOpen(database) {
   // PREOPERATIVE-PREPARATION ROUTES //
 
   router.get('/preoperative-preparation', (req, res) => {
-    const aboutClinicCollection = database.collection('preoperative-preparation');
+    const preoperativeCollection = database.collection('preoperative-preparation');
 
     preoperativeCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  // MATERIALS ROUTES //
+
+  router.get('/materials', (req, res) => {
+    const materialsCollection = database.collection('materials');
+
+    materialsCollection.find({}).toArray((err, docs) => {
       return res.json(docs);
     });
   });

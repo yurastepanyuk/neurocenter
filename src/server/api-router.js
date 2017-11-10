@@ -332,7 +332,7 @@ function apiRouter(database) {
   // PREOPERATIVE-PREPARATION ROUTES //
 
   router.get('/preoperative-preparation', (req, res) => {
-    const aboutClinicCollection = database.collection('preoperative-preparation');
+    const preoperativeCollection = database.collection('preoperative-preparation');
 
     preoperativeCollection.find({}).toArray((err, docs) => {
       return res.json(docs);
@@ -344,7 +344,7 @@ function apiRouter(database) {
 
     const preoperativeCollection = database.collection('preoperative-preparation');
 
-    preoperativeCollection.insertOne(aboutClinic, (err, r) => {
+    preoperativeCollection.insertOne(preoperative, (err, r) => {
       if (err) {
         return res.status(500).json({ error: 'Error inserting new record.' });
       }
@@ -395,6 +395,74 @@ function apiRouter(database) {
       });
 
   });
+
+  // MATERIALS ROUTES //
+
+  router.get('/materials', (req, res) => {
+    const materialsCollection = database.collection('materials');
+
+    materialsCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/materials', (req, res) => {
+    const materials = req.body;
+
+    const materialsCollection = database.collection('materials');
+
+    materialsCollection.insertOne(materials, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/materials', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const materialsCollection = database.collection('materials');
+
+    const obId = new ObjectID(idObject);
+
+    materialsCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/materials', (req, res) => {
+
+    console.log('delete /materials ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const materialsCollection = database.collection('materials');
+
+    const obId = new ObjectID(idObject);
+
+    materialsCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
 
   return router;
 }

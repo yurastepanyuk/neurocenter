@@ -1,0 +1,66 @@
+<div class="ui raised very padded text container segment">
+
+  <!--<div  *ngIf="isItEditing == false">-->
+  <h2 class="ui header">{{_preoperativeObject.headerTopic}}</h2>
+
+  <!--How to host Images and JavaScript/CSS files on Google Drive-->
+  <!--LINK GENERATOR from share link  http://www.hugestreet.info/p/direct-download-link-generator.html-->
+  <div *ngIf="isThereMedia">
+
+    <div *ngIf="isItImgGoogleDrive">
+      <img class="ui centered medium image" [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'>
+    </div>
+
+    <div *ngIf="isItVideoGoogleDrive">
+      <iframe width="100%" height="320px"
+              [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'></iframe>
+    </div>
+
+    <div *ngIf="isItVideoYoutube">
+      <iframe width="100%" height="320px" class="videoyoutube"
+              [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())' frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <div *ngIf="_preoperativeObject.context != ''">
+    <div *ngIf="isItHtmlContent">
+      <div class="column" [innerHTML]="_preoperativeObject.context | safeHtml"></div>
+    </div>
+
+    <div *ngIf="!isItHtmlContent">
+      <div class="column"><p>{{_preoperativeObject.context}}</p></div>
+    </div>
+  </div>
+
+  <div *ngIf="isThereDownloadGoogleDrive">
+    <button class="ui right basic button">
+      <!--Линк для скачивания файлов - нужно только ID поменять
+      https://drive.google.com/uc?export=download&id=0B0CqXtLdt9icOHlRdzgwd0NhMk0-->
+      <!--https://drive.google.com/uc?export=download&id={{_pressaObject.idcontent}} -->
+      <a href='{{getUrlContent()}}'> <i class="download icon" aria-hidden="true"></i>
+        Скачать (from Google Drive)
+      </a>
+    </button>
+  </div>
+
+  <div *ngIf="isThereFolderGoogleDrive">
+    <!--Получить список файлов из расшареного каталога Google Drive-->
+    <!--'sanitizer.bypassSecurityTrustResourceUrl(myurl)'-->
+    <iframe [src]='cs.sanitizer.bypassSecurityTrustResourceUrl(getUrlContent())'
+            style="width:100%; height:600px; border:0;"></iframe>
+    <!--<iframe src="https://drive.google.com/embeddedfolderview?id={{getUrlMediaContent()}}#list" style="width:100%; height:600px; border:0;"></iframe>-->
+  </div>
+
+  <!--</div>-->
+
+  <div>
+    <button class="ui icon right floated button" (click)="deleteItem()">
+      <i class="ban icon"></i>
+    </button>
+  </div>
+
+</div>
+
+

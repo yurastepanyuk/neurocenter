@@ -8,6 +8,10 @@ import {TeamClinicViewComponent} from '../../team-clinic/team-clinic-view/team-c
 import {TeamClinicService} from '../../team-clinic/team-clinic.service';
 import {AboutClinicService} from '../../about-clinic/about-clinic.service';
 import {AboutClinicViewComponent} from '../../about-clinic/about-clinic-view/about-clinic-view.component';
+import {PreoperativePreparationService} from '../../preoperative-preparation/preoperative-preparation.service';
+import {PreoperativePreparationViewComponent} from '../../preoperative-preparation/preoperative-preparation-view/preoperative-preparation-view.component';
+import {MaterialsViewComponent} from '../../materials/materials-view/materials-view.component';
+import {MaterialsService} from '../../materials/materials.service';
 
 @Component({
   selector: 'app-content-edit',
@@ -50,7 +54,9 @@ export class ContentEditComponent implements OnInit {
               @Inject('mapKindsOfMedia') public mapKindsOfMedia: Map<string, string>,
               private sp: PressaServiceService,
               private ts: TeamClinicService,
-              private acs: AboutClinicService) {
+              private acs: AboutClinicService,
+              private pps: PreoperativePreparationService,
+              private mats: MaterialsService) {
     this.contentForm = fb.group({
       'headerTopic':  ['', Validators.required],
       'context':  ['', Validators.required],
@@ -122,6 +128,42 @@ export class ContentEditComponent implements OnInit {
             this.acs.needUpdateParent.emit(addedItem);
           },
           error => this.errorMessage = <any>error);
+      } else if (this.typeContent === 'preoperative-preparation') {
+        const newObj: ContentEditI = {
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
+          dateCreated: new Date().toISOString()
+        };
+
+        console.log('you want this obj to save into DB :', newObj);
+
+        const addeddItem = this.pps.saveNewPreoperative(newObj).subscribe( addedItem => {
+            console.log('addedItem: ');
+            console.log(addedItem);
+            this.addedItem.emit(addedItem);
+            this.acs.needUpdateParent.emit(addedItem);
+          },
+          error => this.errorMessage = <any>error);
+      } else if (this.typeContent === 'materials') {
+        const newObj: ContentEditI = {
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
+          dateCreated: new Date().toISOString()
+        };
+
+        console.log('you want this obj to save into DB :', newObj);
+
+        const addeddItem = this.mats.saveNewMaterials(newObj).subscribe( addedItem => {
+            console.log('addedItem: ');
+            console.log(addedItem);
+            this.addedItem.emit(addedItem);
+            this.mats.needUpdateParent.emit(addedItem);
+          },
+          error => this.errorMessage = <any>error);
       }
     } else {
       const idEdit = this._contentObject.id;
@@ -176,6 +218,10 @@ export class ContentEditComponent implements OnInit {
       return 'team-clinic';
     } else if (cont instanceof  AboutClinicViewComponent) {
       return 'about-clinic';
+    } else if (cont instanceof  PreoperativePreparationViewComponent) {
+      return 'preoperative-preparation';
+    } else if (cont instanceof  MaterialsViewComponent) {
+      return 'materials';
     }
     return '';
   }
@@ -201,6 +247,10 @@ export class ContentEditComponent implements OnInit {
       return '/teamclinic';
     } else if (this.typeContent === 'about-clinic') {
       return '/aboutclinic';
+    } else if (this.typeContent === 'preoperative-preparation') {
+      return '/preoperativepreparation';
+    } else if (this.typeContent === 'materials') {
+      return '/materials';
     }
     return '/pressaaboutus';
   }
