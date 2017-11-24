@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {ContactsOurComponent} from './contacts-our/contacts-our.component';
 import {MainCenterComponent} from './main-center/main-center.component';
 import {AboutClinicComponent} from './about-clinic/about-clinic.component';
 import {PresaAboutusComponent} from './presa-aboutus/presa-aboutus.component';
@@ -15,6 +14,8 @@ import {FeedbackListComponent} from './feedback/feedback-list/feedback-list.comp
 import {TeamClinicListComponent} from './team-clinic/team-clinic-list/team-clinic-list.component';
 import {PreoperativePreparationListComponent} from './preoperative-preparation/preoperative-preparation-list/preoperative-preparation-list.component';
 import {MaterialsListComponent} from './materials/materials-list/materials-list.component';
+import {ContactsOurListComponent} from './contacts-our/contacts-our-list/contacts-our-list.component';
+import {QuestionsListComponent} from './online-consultation/questions-list/questions-list.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'contacts',
-    component: ContactsOurComponent
+    component: ContactsOurListComponent
   },
   {
     path: 'aboutclinic',
@@ -48,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'onlineconsultation',
-    component: OnlineConsultationComponent
+    component: QuestionsListComponent
   },
   {
     path: 'preoperativepreparation',

@@ -1,7 +1,84 @@
 
-  <div class="ui menu header mainmenu">
-    <!--<div class="ui container">-->
+<div *ngIf="getIsItMobile()">
+  <mat-toolbar color="primary">
 
+    <button mat-icon-button [matMenuTriggerFor]="rootMenu" style="margin-left: 0px"> <mat-icon style="margin-right: 10px;">reorder</mat-icon></button>
+
+    <div [routerLink]="['/mainpage']" style="flex: 1 1 auto;">
+    <span style="margin-left: 10px;">
+      <img src="/assets/images/logo_neuro.png" class="angular-logo">
+      Центр нейрохирургии
+    </span>
+      <!--<button mat-button> Sevices</button>-->
+    </div>
+
+  </mat-toolbar>
+
+  <mat-menu #rootMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="subMenuAbot"> <i class="home icon firstmenu-border-left-none"></i> О нас </button>
+    <button mat-menu-item [matMenuTriggerFor]="subMenuPatient"> <i class="handicap icon icon firstmenu-border-left-none"></i> Пациенту </button>
+    <button mat-menu-item [routerLink]="['/materials']"> <i class="file video outline icon"></i> Статьи</button>
+    <button mat-menu-item [routerLink]="['/contacts']"> <i class="marker icon"></i> Контакты</button>
+  </mat-menu>
+
+  <mat-menu #subMenuAbot="matMenu">
+    <button mat-menu-item [routerLink]="['/aboutclinic']"><i class="edit icon"></i>О центре</button>
+    <button mat-menu-item [routerLink]="['/teamclinic']"><i class="users icon"></i>Коллектив</button>
+    <button mat-menu-item [routerLink]="['/feedbackclients']"><i class="thumbs outline up icon"></i>Отзывы клиентов</button>
+    <button mat-menu-item [routerLink]="['/pressaaboutus']"><i class="globe icon"></i>СМИ</button>
+  </mat-menu>
+
+  <mat-menu #subMenuPatient="matMenu">
+    <button mat-menu-item [routerLink]="['/onlineconsultation']"><i class="doctor icon"></i>Онлайн консультация</button>
+    <button mat-menu-item [routerLink]="['/offlineconsultation']"><i class="hospital icon"></i>Запись на прием</button>
+    <button mat-menu-item [routerLink]="['/preoperativepreparation']"><i class="shower icon"></i>Передоперационная подгоготовка</button>
+  </mat-menu>
+</div>
+
+<div  *ngIf="!getIsItMobile()">
+  <mat-toolbar color="primary">
+
+    <!--<button mat-icon-button [matMenuTriggerFor]="rootMenu"> <mat-icon style="margin-right: 10px;">reorder</mat-icon></button>-->
+
+    <div [routerLink]="['/mainpage']" style="flex: 1 1 auto;">
+      <span style="margin-left: 10px; font-size: 24px">
+        <img src="/assets/images/logo_neuro.png" class="angular-logo">
+        Центр нейрохирургии
+      </span>
+      <!--<button mat-button> Sevices</button>-->
+
+      <button mat-button [matMenuTriggerFor]="menuAboutDesctop" style="font-size: 24px" class="submenu-fon"><i class="material-icons">home</i> О нас<i class="material-icons">keyboard_arrow_down</i></button>
+      <mat-menu #menuAboutDesctop="matMenu">
+        <button mat-icon-button [routerLink]="['/aboutclinic']"> <i class="material-icons material-icons-sub">work</i> О центре</button>
+        <br>
+        <button mat-icon-button [routerLink]="['/teamclinic']"> <i class="material-icons material-icons-sub">group</i> Коллектив</button>
+        <br>
+       <button mat-icon-button [routerLink]="['/feedbackclients']"> <i class="thumbs outline up icon"> </i> Отзывы</button>
+        <br>
+        <button mat-icon-button [routerLink]="['/pressaaboutus']"><mat-icon class="material-icons-sub">stars</mat-icon><span>СМИ</span></button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="menuPacientDesktop" style="font-size: 24px"><i class="material-icons">accessible</i> Пациенту<i class="material-icons">keyboard_arrow_down</i></button>
+      <mat-menu #menuPacientDesktop="matMenu">
+        <button mat-menu-item [routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация</button>
+        <button mat-menu-item [routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием</button>
+        <button mat-menu-item [routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперационная подгоготовка
+        </button>
+      </mat-menu>
+
+      <!--<i class="file video outline icon"></i>-->
+      <button mat-button  [routerLink]="['/materials']" style="font-size: 24px"><span style="margin-left: 5px"> Статьи</span></button>
+
+      <button mat-icon-button [routerLink]="['/contacts']" style="font-size: 24px"> <i class="marker icon"></i> <span style="margin-left: 5px"> Контакты</span></button>
+    </div>
+
+    <button mat-icon-button [routerLink]="['/login']"><mat-icon>perm_identity</mat-icon><span style="margin-left: 5px"> Вход</span></button>
+
+  </mat-toolbar>
+</div>
+
+  <div class="ui menu header mainmenu" *ngIf="!getIsItMobile()">
+    <!--<div class="ui container">-->
       <div class="ui attached stackable right menu mainmenu headermenufont">
 
         <div class="ui container">
@@ -9,6 +86,7 @@
           <div class="item border-left-none">
             <a [routerLink]="['/mainpage']" aria-label="Main page">
               <img  src="/assets/images/logo_neuro.png">
+
             </a>
             <div class="header item">
               <a [routerLink]="['/mainpage']" aria-label="Main page" class="headermenufont">
@@ -17,7 +95,7 @@
             </div>
           </div>
 
-          <div class="ui simple dropdown item headermenufont border-left-none">
+          <div class="ui plesim dropdown item headermenufont border-left-none">
             <i class="home icon firstmenu-border-left-none"></i>О нас
             <i class="dropdown icon"></i>
             <div class="menu">

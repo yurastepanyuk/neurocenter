@@ -21,6 +21,23 @@ function apiRouterOpen(database) {
     });
   });
 
+  router.post('/feedback-clients', (req, res) => {
+    const feedback = req.body;
+
+    const feedbackCollection = database.collection('feedback-clients');
+
+    feedbackCollection.insertOne(feedback, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
   /// TEAM-CLINIC ROUTES ///
 
   router.get('/team-clinic', (req, res) => {
@@ -57,6 +74,26 @@ function apiRouterOpen(database) {
     const materialsCollection = database.collection('materials');
 
     materialsCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  // CONTACTS-OUR ROUTES //
+
+  router.get('/contacts-our', (req, res) => {
+    const contactsOurCollection = database.collection('contacts-our');
+
+    contactsOurCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  // ONLINE-CONSULTATION online-consultation ROUTES//
+
+  router.get('/online-consultation', (req, res) => {
+    const onlineConsultationCollection = database.collection('online-consultation');
+
+    onlineConsultationCollection.find({}).toArray((err, docs) => {
       return res.json(docs);
     });
   });

@@ -3,6 +3,7 @@ const jwt =require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const checkJwt = require('express-jwt');
 const ObjectID = require('mongodb-core').BSON.ObjectID;
+const actions = require('./actions');
 
 function apiRouter(database) {
   const router = express.Router();
@@ -463,6 +464,143 @@ function apiRouter(database) {
 
   });
 
+  // CONTACTS-OUR ROUTES //
+
+  router.get('/contacts-our', (req, res) => {
+    const contactsOurCollection = database.collection('contacts-our');
+
+    contactsOurCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/contacts-our', (req, res) => {
+    const contactsOur = req.body;
+
+    const contactsOurCollection = database.collection('contacts-our');
+
+    contactsOurCollection.insertOne(contactsOur, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/contacts-our', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const contactsOurCollection = database.collection('contacts-our');
+
+    const obId = new ObjectID(idObject);
+
+    contactsOurCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          context: updContent.context
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/contacts-our', (req, res) => {
+
+    console.log('delete /contacts-our ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const contactsOurCollection = database.collection('contacts-our');
+
+    const obId = new ObjectID(idObject);
+
+    contactsOurCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  // ONLINE-CONSULTATION online-consultation ROUTES//
+
+  router.get('/online-consultation', (req, res) => {
+    const onlineConsultationCollection = database.collection('online-consultation');
+
+    onlineConsultationCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/online-consultation', (req, res) => {
+    const onlineConsultation = req.body;
+
+    const onlineConsultationCollection = database.collection('online-consultation');
+
+    onlineConsultationCollection.insertOne(onlineConsultation, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/online-consultation', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const onlineConsultationCollection = database.collection('online-consultation');
+
+    const obId = new ObjectID(idObject);
+
+    onlineConsultationCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          answers: updContent.answers
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/online-consultation', (req, res) => {
+
+    console.log('delete /online-consultation ' + req.body.idObject);
+
+    const idObject = req.body.idObject;
+
+    const onlineConsultationCollection = database.collection('online-consultation');
+
+    const obId = new ObjectID(idObject);
+
+    onlineConsultationCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  // MAIL //
+
+  router.post('/sendmail', actions.sendMail);
 
   return router;
 }

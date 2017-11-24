@@ -1,3 +1,24 @@
+
+<div class="ui raised very padded text container segment">
+  <mat-toolbar color="primary">
+
+    <button mat-button> Today <mat-icon svgIcon="thumbs-up"></mat-icon></button>
+    <button mat-button> Tomorrow</button>
+
+
+
+  </mat-toolbar>
+
+  <mat-form-field class="example-events">
+    <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #picker></mat-datepicker>
+  </mat-form-field>
+
+
+</div>
+
+
 <div class="ui raised very padded text container segment">
     <div class="field-items">
       <div class="field-item even" property="content:encoded"><p>Мы осуществляем консультации в:</p>

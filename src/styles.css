@@ -1,5 +1,6 @@
 /*@import "./assets/vendor/semantic.min.css";*/
 /*@import "./assets/vendor/components/video.min.css";*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .mainmenu{
   background: #4257b2 !important;;

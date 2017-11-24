@@ -1,0 +1,31 @@
+
+<div class="ui raised very padded text container segment" *ngIf="this.auth.isLoggedIn()">
+
+  <div (click)="showNewTopic()" *ngIf="this.auth.isLoggedIn()" class="ui button">
+    <i class="sticky note outline icon"></i>
+    Новый question
+  </div>
+
+  <div class="ui icon message" *ngIf="newQuestionDto">
+    <i class="notched check green icon"></i>
+    <i class="close icon" (click)="newQuestionDto = null"></i>
+    <div class="content">
+      <div class="header">
+        New Question added!
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewnewnopic == true" class="ui raised segment">
+
+    <app-questions-edit [contentObject]="this.getEmptyQuestionObject()"
+                       [initParametres]="this.getParametresMap()"
+                       (addedItem)="closeEdit()"></app-questions-edit>
+
+  </div>
+
+</div>
+
+<div *ngFor="let curQuestion of questionsList">
+  <app-questions-view [questionObject]="curQuestion"></app-questions-view>
+</div>

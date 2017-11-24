@@ -28,31 +28,4 @@ MongoClient.connect(process.env.DB_CONN, (err, db) => {
 
 });
 
-// app.get('*', (req, res) => {
-//   return res.sendFile(path.join(__dirname, 'public/index.html'))
-// });
 
-// app.get('/api/presa-aboutus', (req, res) => {
-//   const contactsCollection = database.collection('presa-aboutus');
-//
-//   contactsCollection.find({}).toArray((err, docs) => {
-//     return res.json(docs);
-//   });
-// });
-//
-// app.post('/api/presa-aboutus', (req, res) => {
-//   const user = req.body;
-//
-//   const contactsCollection = database.collection('presa-aboutus');
-//
-//   contactsCollection.insertOne(user, (err, r) => {
-//     if (err) {
-//       return res.status(500).json({ error: 'Error inserting new record.' });
-//     }
-//
-//     const newRecord = r.ops[0];
-//
-//     return res.status(201).json(newRecord);
-//   });
-//
-// });

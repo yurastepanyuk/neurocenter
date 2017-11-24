@@ -1,0 +1,44 @@
+.angular-logo {
+  margin: 0 4px 3px 0;
+  height: 35px;
+  vertical-align: middle;
+}
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+/*.material-icons.md-48 { font-size: 48px; }*/
+/*mat-icon { font-size: 48px; }*/
+/*.material-icons.md-36 { font-size: 36px; }*/
+mat-icon {
+  font-size: 48px;
+}
+
+.mat-button {
+  font-size: 18px;
+}
+
+span.mat-button-wrapper {
+  height: 35px;
+}
+
+.material-icons { font-size: 36px;}
+
+.mat-icon-button {
+  font-size: 18px;
+  width: max-content;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.material-icons-sub {
+  font-size: 18px;
+}
+
+/*.subButtons {*/
+  /*!*font-size: 36px;*!*/
+/*}*/
+/*.menu-site {*/
+  /*width: auto;*/
+/*}*/
+

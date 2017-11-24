@@ -34,6 +34,14 @@ export class ApiService {
     } ).catch(this.handleError);
   }
 
+  // this.http.post('http://localhost:3333/adduser', creds, {headers: headers}).subscribe((data) => {
+  // if(data.json().success) {
+  //   this.http.post('http://localhost:3333/sendmail', emailid, {headers: headers}).subscribe((data) => {
+  //     if(data.json().success) {
+  //       console.log('Sent successfully');
+  //     }
+  //   })
+
   put(url: string, body: Object) {
     const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Put, body);
     return this.http.put(options.get('url').toString(), options.get('body'), options.get('headers')).map((response: Response) => {
@@ -43,7 +51,7 @@ export class ApiService {
   }
 
   delete(url: string, body: Object) {
-    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Post, body);
+    const options: Map<string, Object> = this.prepareRequest(url, RequestMethod.Delete, body);
     return this.http.delete(options.get('url').toString(), options.get('headers')).map((response: Response) => {
       return response.json();
     } ).catch(this.handleError);
@@ -59,8 +67,10 @@ export class ApiService {
     let apiUrl = `${this.baseUrl}/${url}`;
     if (method === RequestMethod.Get) {
       apiUrl = `${this.isItOpenUrlGet(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
-    } else if (method === RequestMethod.Post || method === RequestMethod.Delete) {
+    } else if (method === RequestMethod.Post) {
       apiUrl = `${this.isItOpenUrlPost(url) ? this.baseUrlOpen : this.baseUrl}/${url}`;
+    } else if ( method === RequestMethod.Delete) {
+      apiUrl = `${this.baseUrl}/${url}`;
     } else {
       apiUrl = `${this.baseUrl}/${url}`;
     }

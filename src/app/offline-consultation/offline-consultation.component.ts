@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDatepickerInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-offline-consultation',
@@ -12,4 +13,7 @@ export class OfflineConsultationComponent implements OnInit {
   ngOnInit() {
   }
 
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+  }
 }

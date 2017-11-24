@@ -12,13 +12,15 @@ import {PreoperativePreparationService} from '../../preoperative-preparation/pre
 import {PreoperativePreparationViewComponent} from '../../preoperative-preparation/preoperative-preparation-view/preoperative-preparation-view.component';
 import {MaterialsViewComponent} from '../../materials/materials-view/materials-view.component';
 import {MaterialsService} from '../../materials/materials.service';
+import {ContactsOurViewComponent} from '../../contacts-our/contacts-our-view/contacts-our-view.component';
+import {ContactsOurService} from '../../contacts-our/contacts-our.service';
 
 @Component({
-  selector: 'app-content-edit',
+    selector: 'app-content-edit',
   templateUrl: './content-edit.component.html',
   styleUrls: ['./content-edit.component.css']
 })
-export class ContentEditComponent implements OnInit {
+  export class ContentEditComponent implements OnInit {
 
   public contentForm: FormGroup;
   public keysKindsOfMedia: string[];
@@ -56,7 +58,8 @@ export class ContentEditComponent implements OnInit {
               private ts: TeamClinicService,
               private acs: AboutClinicService,
               private pps: PreoperativePreparationService,
-              private mats: MaterialsService) {
+              private mats: MaterialsService,
+              private cos: ContactsOurService) {
     this.contentForm = fb.group({
       'headerTopic':  ['', Validators.required],
       'context':  ['', Validators.required],
@@ -164,6 +167,24 @@ export class ContentEditComponent implements OnInit {
             this.mats.needUpdateParent.emit(addedItem);
           },
           error => this.errorMessage = <any>error);
+      } else if (this.typeContent === 'contacts-our') {
+        const newObj: ContentEditI = {
+          headerTopic: this.contentForm.get('headerTopic').value,
+          context: this.contentForm.get('context').value,
+          typecontent: this.contentForm.get('typecontent').value,
+          idcontent: this.parseMediaContentLink(this.contentForm.get('mediaContent').value, this.contentForm.get('typecontent').value),
+          dateCreated: new Date().toISOString()
+        };
+
+        console.log('you want this obj to save into DB :', newObj);
+
+        const addeddItem = this.cos.saveNewContactsOur(newObj).subscribe( addedItem => {
+            console.log('addedItem: ');
+            console.log(addedItem);
+            this.addedItem.emit(addedItem);
+            this.cos.needUpdateParent.emit(addedItem);
+          },
+          error => this.errorMessage = <any>error);
       }
     } else {
       const idEdit = this._contentObject.id;
@@ -222,6 +243,8 @@ export class ContentEditComponent implements OnInit {
       return 'preoperative-preparation';
     } else if (cont instanceof  MaterialsViewComponent) {
       return 'materials';
+    } else if (cont instanceof  ContactsOurViewComponent) {
+      return 'contacts-our';
     }
     return '';
   }
@@ -251,6 +274,8 @@ export class ContentEditComponent implements OnInit {
       return '/preoperativepreparation';
     } else if (this.typeContent === 'materials') {
       return '/materials';
+    } else if (this.typeContent === 'contacts-our') {
+      return '/contacts';
     }
     return '/pressaaboutus';
   }

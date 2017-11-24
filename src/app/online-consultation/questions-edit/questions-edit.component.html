@@ -1,0 +1,26 @@
+<div>
+  <h2 class="ui header">Новый отзыв</h2>
+  <form [formGroup]="questionForm"
+        class="ui form"
+        [class.error]="!questionForm.valid && questionForm.touched"
+        (ngSubmit)="onSubmit()">
+
+    <div class="field" [class.error]="!questionForm.get('context').valid && questionForm.get('context').touched">
+      <label for="context">Вопрос</label>
+      <input type="text"
+             id="context"
+             placeholder="Текст вопроса"
+             name="Вопрос"
+             [formControl]="questionForm.controls['context']">
+    </div>
+
+    <div *ngIf="!questionForm.valid"
+         class="ui error message">Заполните все поля
+    </div>
+
+    <button type="submit" class="ui primary button" [routerLink]="['/onlineconsultation']">Опубликовать</button>
+    <button class="ui right floated button" (click)="closeEdit()">
+      Отмена
+    </button>
+  </form>
+</div>

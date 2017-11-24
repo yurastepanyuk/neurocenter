@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuTopComponent } from './menu-top/menu-top.component';
-import { ContactsOurComponent } from './contacts-our/contacts-our.component';
 import { MainCenterComponent } from './main-center/main-center.component';
 import { AboutClinicComponent } from './about-clinic/about-clinic.component';
 import { PresaAboutusComponent } from './presa-aboutus/presa-aboutus.component';
@@ -19,7 +18,7 @@ import { ApiService} from './shared/api.service';
 import { AuthService} from './shared/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
-import {AuthGuard} from './auth.guard';
+import { AuthGuard} from './auth.guard';
 import { ContentEditComponent } from './presa-aboutus/content-edit/content-edit.component';
 import { FeedbackViewComponent } from './feedback/feedback-view/feedback-view.component';
 import { FeedbackEditComponent } from './feedback/feedback-edit/feedback-edit.component';
@@ -39,6 +38,24 @@ import {PreoperativePreparationService} from './preoperative-preparation/preoper
 import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
 import { MaterialsViewComponent } from './materials/materials-view/materials-view.component';
 import {MaterialsService} from './materials/materials.service';
+import { ContactsOurListComponent } from './contacts-our/contacts-our-list/contacts-our-list.component';
+import { ContactsOurViewComponent } from './contacts-our/contacts-our-view/contacts-our-view.component';
+import {ContactsOurService} from './contacts-our/contacts-our.service';
+import { QuestionsListComponent } from './online-consultation/questions-list/questions-list.component';
+import { QuestionsViewComponent } from './online-consultation/questions-view/questions-view.component';
+import { AnswerViewComponent } from './online-consultation/answer-view/answer-view.component';
+import {OnlineConsultationService} from './online-consultation/online-consultation.service';
+import { QuestionsEditComponent } from './online-consultation/questions-edit/questions-edit.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+
+registerLocaleData(localeRu);
 
 export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   [['', ''],
@@ -51,17 +68,15 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
     ['otherContent', 'Other content']
   ]
 );
-
 export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation',
-  'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic', 'about-clinic'];
+  'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic', 'about-clinic', 'contacts-our'];
 
-export const openUrlPost: string[] = ['online-consultation', 'xxx', 'feedback-clients'];
+export const openUrlPost: string[] = ['feedback-clients', 'xxx', 'feedback-clients'];
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuTopComponent,
-    ContactsOurComponent,
     MainCenterComponent,
     AboutClinicComponent,
     PresaAboutusComponent,
@@ -83,7 +98,13 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx', 'feedback-cl
     PreoperativePreparationListComponent,
     PreoperativePreparationViewComponent,
     MaterialsListComponent,
-    MaterialsViewComponent
+    MaterialsViewComponent,
+    ContactsOurListComponent,
+    ContactsOurViewComponent,
+    QuestionsListComponent,
+    QuestionsViewComponent,
+    AnswerViewComponent,
+    QuestionsEditComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +112,11 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx', 'feedback-cl
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    PressaModuleModule
+    PressaModuleModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    MaterialModule,
+    Ng2DeviceDetectorModule.forRoot()
   ],
   providers: [
     { provide: 'mapKindsOfMedia', useValue: mapKindsOfMedia },
@@ -105,7 +130,9 @@ export const openUrlPost: string[] = ['online-consultation', 'xxx', 'feedback-cl
     { provide: ContentService, useClass: ContentService},
     { provide: AboutClinicService, useClass: AboutClinicService},
     { provide: PreoperativePreparationService, useClass: PreoperativePreparationService},
-    { provide: MaterialsService, useClass: MaterialsService}
+    { provide: MaterialsService, useClass: MaterialsService},
+    { provide: ContactsOurService, useClass: ContactsOurService},
+    { provide: OnlineConsultationService, useClass: OnlineConsultationService}
     ],
   bootstrap: [AppComponent]
 })

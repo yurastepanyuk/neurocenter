@@ -1,0 +1,39 @@
+<div class="ui segment" style="min-height: 110px;">
+
+  <div *ngIf="isItEditing == true" >
+
+    <!--<app-content-edit [contentObject]="this._pressaObject"-->
+    <!--[initParametres]="this.getParametresMap()"-->
+    <!--(addedItem)="closeEdit()"></app-content-edit>-->
+
+  </div>
+
+  <div style="height: 30px;">
+    <div style="float: left">
+      <h4 class="left">{{_answerObject.user.userview}}</h4>
+    </div>
+
+    <div style="float: right">
+      <!--'dd/MM/yyyy HH:mm'-->
+      <!--<h4>{{_answerObject.dateCreated | date:'fullDate'}}</h4>-->
+      <h4>{{getDateAnswerView()}}</h4>
+    </div>
+  </div>
+
+  <div>
+    <div *ngIf="_answerObject.context != ''">
+      <div class="column"><p>{{_answerObject.context}}</p></div>
+    </div>
+
+    <div *ngIf="this.auth.isLoggedIn() && this.auth.isItAdmin()">
+      <div>
+        <button class="ui icon right floated button" (click)="deleteItem()">
+          <i class="ban icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
