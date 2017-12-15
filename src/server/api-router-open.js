@@ -98,6 +98,48 @@ function apiRouterOpen(database) {
     });
   });
 
+  // OFFLINE-CONSULTATION ROUTES//
+
+  router.get('/offline-consultation', (req, res) => {
+
+    var dateStart;
+    var dateEnd;
+
+    // console.log('new Date ' + new Date(1512511200000));
+
+    if (req.query) {
+      // dateStart = new Date(new Number(req.query.dateStart)).toISOString().substr(0,10);
+      // dateEnd = new Date(new Number(req.query.dateEnd)).toISOString().substr(0,10);
+      dateStart = req.query.dateStart.substr(0,10);
+      dateEnd = req.query.dateEnd.substr(0,10);
+    }
+    // dateStart = new Date(2017, 11, 6).toISOString();
+    // dateEnd = new Date(2017, 11, 7).toISOString();
+
+    // console.log('dateStart ' + dateStart);
+    // console.log('dateEnd ' + dateEnd);
+
+    const offlineConsultationCollection = database.collection('offline-consultation');
+
+    offlineConsultationCollection.find({
+      dateConsultation: {$regex:dateStart}
+    }).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  // SCHEDULE //
+
+  router.get('/schedule', (req, res) => {
+
+
+    const scheduleCollection = database.collection('schedule');
+
+    scheduleCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
   return router;
 }
 

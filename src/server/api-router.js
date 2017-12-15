@@ -14,13 +14,13 @@ function apiRouter(database) {
 
   router.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
-      res.status(401).send({ error: err.message });
+      res.status(401).send({ error: err.message }) ;
     }
   });
 
   router.post('/authenticate', (req, res) => {
     const user = req.body;
-
+    console.log(user);
     const usersCollection = database.collection('users');
 
     usersCollection
@@ -113,9 +113,17 @@ function apiRouter(database) {
 
   router.delete('/presa-aboutus', (req, res) => {
 
-    console.log('delete /presa-aboutus ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /presa-aboutus: ' + idObject);
 
     const contactsCollection = database.collection('presa-aboutus');
 
@@ -180,9 +188,17 @@ function apiRouter(database) {
 
   router.delete('/feedback-clients', (req, res) => {
 
-    console.log('delete /feedback ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /feedback-clients ' + idObject);
 
     const feedbackCollection = database.collection('feedback-clients');
 
@@ -247,9 +263,16 @@ function apiRouter(database) {
 
   router.delete('/team-clinic', (req, res) => {
 
-    console.log('delete /team-clinic ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+    console.log('delete /team-clinic ' + idObject);
 
     const teamclinicCollection = database.collection('team-clinic');
 
@@ -314,9 +337,17 @@ function apiRouter(database) {
 
   router.delete('/about-clinic', (req, res) => {
 
-    console.log('delete /about-clinic ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /about-clinic ' + idObject);
 
     const aboutClinicCollection = database.collection('about-clinic');
 
@@ -381,9 +412,17 @@ function apiRouter(database) {
 
   router.delete('/preoperative-preparation', (req, res) => {
 
-    console.log('delete /preoperative-preparation ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /preoperative-preparation ' + idObject);
 
     const preoperativeCollection = database.collection('preoperative-preparation');
 
@@ -448,9 +487,32 @@ function apiRouter(database) {
 
   router.delete('/materials', (req, res) => {
 
-    console.log('delete /materials ' + req.body.idObject);
+    var idObject;
+    // if (req.body.idObject) {
+    //   console.log('delete /materials ' + req.body.idObject);
+    // }
 
-    const idObject = req.body.idObject;
+
+    if (req.body) {
+      console.log('delete /materials params: There is the body');
+      idObject = req.body.idObject;
+    }
+
+    // if (req.body.params) {
+    //   console.log('delete /materials params: There is req.body.params' + req.body.params);
+    // }
+
+    // if (req.params) {
+    //   console.log('delete /materials params: There is req.params' + JSON.stringify(req.params, null, 2));
+    // }
+
+    if (req.query) {
+      console.log('delete /materials params: There is req.query' + JSON.stringify(req.query, null, 2));
+      console.log('delete /materials params: There is req.query.id' + req.query.id);
+      idObject = req.query.id;
+    }
+    //
+    // const idObject = req.body.idObject;
 
     const materialsCollection = database.collection('materials');
 
@@ -515,9 +577,17 @@ function apiRouter(database) {
 
   router.delete('/contacts-our', (req, res) => {
 
-    console.log('delete /contacts-our ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /contacts-our ' + idObject);
 
     const contactsOurCollection = database.collection('contacts-our');
 
@@ -582,9 +652,17 @@ function apiRouter(database) {
 
   router.delete('/online-consultation', (req, res) => {
 
-    console.log('delete /online-consultation ' + req.body.idObject);
+    var idObject;
 
-    const idObject = req.body.idObject;
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /online-consultation ' + idObject);
 
     const onlineConsultationCollection = database.collection('online-consultation');
 
@@ -597,6 +675,176 @@ function apiRouter(database) {
       });
 
   });
+
+  // SCHEDULE //
+
+  router.get('/schedule', (req, res) => {
+
+
+    const schedulenCollection = database.collection('schedule');
+
+    scheduleCollection.find({}).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/schedule', (req, res) => {
+    const schedule = req.body;
+
+    const scheduleCollection = database.collection('schedule');
+
+    scheduleCollection.insertOne(schedule, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/schedule', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const scheduleCollection = database.collection('schedule');
+
+    const obId = new ObjectID(idObject);
+
+    scheduleCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          answers: updContent.answers
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/schedule', (req, res) => {
+
+    var idObject;
+
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /schedule ' + idObject);
+
+    const scheduleCollection = database.collection('schedule');
+
+    const obId = new ObjectID(idObject);
+
+    scheduleCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  // OFFLINE-CONSULTATION ROUTES//
+
+  router.get('/offline-consultation', (req, res) => {
+
+    var dateStart;
+    var dateEnd;
+
+    if (req.query) {
+      dateStart = req.query.dateStart;
+      dateEnd = req.query.dateEnd;
+    }
+
+    dateStart = new Date(2017, 12, 5);
+    dateEnd = new Date(2017, 12, 6);
+
+    const offlineConsultationCollection = database.collection('offline-consultation');
+
+    offlineConsultationCollection.find({
+      dateConsultation: {
+        $gte: dateStart,
+        $lt: dateEnd
+      }
+      }).toArray((err, docs) => {
+      return res.json(docs);
+    });
+  });
+
+  router.post('/offline-consultation', (req, res) => {
+    const offlineConsultation = req.body;
+
+    const offlineConsultationCollection = database.collection('offline-consultation');
+
+    offlineConsultationCollection.insertOne(offlineConsultation, (err, r) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error inserting new record.' });
+      }
+
+      const newRecord = r.ops[0];
+
+      return res.status(201).json(newRecord);
+    });
+
+  });
+
+  router.put('/offline-consultation', (req, res) => {
+    const updContent = req.body.data;
+    const idObject = req.body.idObject;
+
+    const onlineConsultationCollection = database.collection('offline-consultation');
+
+    const obId = new ObjectID(idObject);
+
+    onlineConsultationCollection
+      .findOneAndUpdate({"_id": obId}, {
+        $set: {
+          answers: updContent.answers
+        }
+      }, {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
+  router.delete('/offline-consultation', (req, res) => {
+
+    var idObject;
+
+    if (req.body) {
+      idObject = req.body.idObject;
+    }
+
+    if (req.query) {
+      idObject = req.query.id;
+    }
+
+    console.log('delete /online-consultation ' + idObject);
+
+    const onlineConsultationCollection = database.collection('offline-consultation');
+
+    const obId = new ObjectID(idObject);
+
+    onlineConsultationCollection
+      .findOneAndDelete({"_id": obId}, (err, result) => {
+        if (err) return res.send(err);
+        res.send(result)
+      });
+
+  });
+
 
   // MAIL //
 

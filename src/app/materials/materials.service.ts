@@ -2,6 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {ApiService} from '../shared/api.service';
 import {ContentService} from '../shared/content.service';
 import {Observable} from 'rxjs/Observable';
+import { of } from 'rxjs/Observable/of';
 import {ContentEditI} from '../presa-aboutus/content-edit/content-edit-i';
 
 
@@ -15,12 +16,16 @@ export class MaterialsService {
   }
 
   deleteObject(data: any) {
-    return this.api.delete('materials', data).catch(this.handleError);
+    return this.api.deleteHttpClient('materials', data).catch(this.handleError);
   }
 
   handleError(error: Response | any) {
+    if (error == null) {
+      console.log(`There was a problem with our MaterialsService!`);
+      return Observable.throw(`There was a problem with our MaterialsService!`);
+    }
     // could be something more sofisticated
-    console.log(error.message || error || `There was a problem with our MaterialsService!`);
+    console.log(error || error.message || `There was a problem with our MaterialsService!`);
     // throw an application level error
     return Observable.throw(error.message || error);
   }
@@ -31,14 +36,14 @@ export class MaterialsService {
 
   getData(): Observable<ContentEditI[]>  {
 
-    const materialsdata$ = this.api.get('materials').map((data: any) => {
+    const materialsdata = this.api.getHttpClient<ContentEditI[]>('materials').map((data: any) => {
       return data.map(this.cs.toContentEditIObject);
-    } );
-    return materialsdata$;
+    });
+     return materialsdata;
   }
 
   saveNewMaterials(newObj: ContentEditI): Observable<ContentEditI> {
-    return this.api.post('materials', newObj).catch(this.handleError);
+    return this.api.postHttpClient('materials', newObj).catch(this.handleError);
   }
 
 }

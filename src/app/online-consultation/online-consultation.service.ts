@@ -30,7 +30,7 @@ export class OnlineConsultationService {
     const searchParam = new URLSearchParams();
     searchParam.set('limit', '25');
 
-    const questiondata$ = this.api.get('online-consultation').map((data: any) => {
+    const questiondata$ = this.api.getHttpClient<QuestionDto[]>('online-consultation').map((data: any) => {
       return data.map(this.toQuestion);
     } );
 
@@ -44,21 +44,21 @@ export class OnlineConsultationService {
   }
 
   saveQuestion(newObj: QuestionI): Observable<QuestionDto> {
-    return this.api.post('online-consultation', JSON.stringify(newObj)).catch(this.handleError);
+    return this.api.postHttpClient('online-consultation', JSON.stringify(newObj)).catch(this.handleError);
   }
   updateContent(id: string, data: any) {
-    return this.api.put('online-consultation', data).catch(this.handleError);
+    return this.api.putHttpClient('online-consultation', data).catch(this.handleError);
   }
 
   deleteObject(data: any) {
-    return this.api.delete('online-consultation', data).catch(this.handleError);
+    return this.api.deleteHttpClient('online-consultation', data).catch(this.handleError);
   }
 
   sendEmail(data: any) {
-    return this.api.post('sendmail', JSON.stringify(data)).catch(this.handleError);
+    return this.api.postHttpClient('sendmail', JSON.stringify(data)).catch(this.handleError);
   }
 
-  handleError(error: Response | any) {
+  handleError(error: any) {
     console.log(error.message || error || `We couldn't retrieve your online-consultation  data!`);
     return Observable.throw(error.message || error);
   }

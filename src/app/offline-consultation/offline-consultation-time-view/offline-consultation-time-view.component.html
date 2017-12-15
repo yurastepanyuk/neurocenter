@@ -1,0 +1,43 @@
+<mat-card style="margin: 15px;">
+  <mat-card-header>
+    <mat-card-title>{{_offlineConsultationObject.timeConsultation}}</mat-card-title>
+    <div *ngIf="!isFree">
+      <mat-card-subtitle>Есть запись</mat-card-subtitle>
+    </div>
+    <div *ngIf="isFree">
+      <mat-card-subtitle>Можно записаться</mat-card-subtitle>
+    </div>
+  </mat-card-header>
+  <!--<mat-card-content>-->
+  <!--<p>-->
+  <!--{{_offlineConsultationObject.description}}-->
+  <!--</p>-->
+  <!--</mat-card-content>-->
+
+  <div *ngIf="wantConsultation == true">
+    <div class="field">
+      <!--<textarea type="text"-->
+      <!--id="description"-->
+      <!--rows="4"-->
+      <!--placeholder="description"-->
+      <!--name="description"-->
+      <!--style="width: 100%"-->
+      <!--#descriptionForConsultation>-->
+      <!--</textarea>-->
+      <mat-form-field class="example-full-width">
+        <textarea matInput [(ngModel)]="description" placeholder="Описание" #descriptionf id="description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div style="margin: auto; text-align: center;">
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!isFree" (click)="wantHaveConsultation()">Записаться
+      </button>
+      <button mat-raised-button *ngIf="wantConsultation" type="submit" name="description" color="primary"
+              [disabled]="!isFree" (click)="SubmitConsultation()">Подтвердить
+      </button>
+    </mat-card-actions>
+  </div>
+</mat-card>
+

@@ -38,6 +38,11 @@ export class MaterialsViewComponent implements OnInit {
   }
 
   deleteItem() {
+
+    const timestamp = this._materialObject.id.toString().substring(0, 8);
+    const dateCreated = new Date( parseInt( timestamp, 16 ) * 1000 );
+
+    console.log('date create of delete Object ', dateCreated);
     const delObject = {
       idObject: this._materialObject.id,
       headerTopic: this._materialObject.headerTopic

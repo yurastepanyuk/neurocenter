@@ -32,7 +32,8 @@ export class MaterialsListComponent implements OnInit {
     this.mats.getData().subscribe(
       (results) => { // on sucesss
         this.materialsList = this.cs.sortedbyDateCreated(results);
-
+      }, err => {
+        console.log('Something went wrong!');
       });
   }
 

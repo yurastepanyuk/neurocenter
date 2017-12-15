@@ -9,6 +9,14 @@ import {MatDatepickerInputEvent} from '@angular/material';
 export class MainCenterComponent implements OnInit {
   events: string[] = [];
 
+  favoriteSeason: string;
+  seasons = [
+    'Winter',
+    'Spring',
+    'Summer',
+    'Autumn',
+  ];
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +30,8 @@ export class MainCenterComponent implements OnInit {
   onChange($event) {
     console.log($event);
   }
+
+
 
 
 }

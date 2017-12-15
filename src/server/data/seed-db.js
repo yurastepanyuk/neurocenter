@@ -4,6 +4,8 @@ const pressaaboutus = require('./pressaaboutus');
 const users = require('./users');
 const feedback = require('./feedback');
 const teamclinic = require('./team-clinic');
+const offlineConsultation = require('./offlineconsultation');
+const schedule = require('./schedule');
 
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
@@ -37,4 +39,8 @@ function seedCollection(collectionName, initialRecords) {
 // seedCollection('presa-aboutus', pressaaboutus);
 // seedCollection('users', users);
 // seedCollection('feedback', feedback);
-seedCollection('team-clinic', teamclinic);
+// seedCollection('team-clinic', teamclinic);
+// seedCollection('offline-consultation', offlineConsultation);
+seedCollection('schedule', schedule);
+
+

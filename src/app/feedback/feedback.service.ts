@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {ApiService} from '../shared/api.service';
-import {Http} from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
 import {FeedbackDto} from './feedback-dto';
 import {FeedbackI} from './feedback-i';
@@ -10,7 +10,7 @@ export class FeedbackService {
 
   public needUpdateParent: EventEmitter<any>;
 
-  constructor(private api: ApiService, private http: Http) {
+  constructor(private api: ApiService) {
     this.needUpdateParent = new EventEmitter();
   }
 
@@ -19,7 +19,7 @@ export class FeedbackService {
     const searchParam = new URLSearchParams();
     searchParam.set('limit', '25');
 
-    const pressadata$ = this.api.get('feedback-clients').map((data: any) => {
+    const pressadata$ = this.api.getHttpClient<FeedbackDto[]>('feedback-clients').map((data: any) => {
       return data.map(this.toFeedback);
     } );
 
@@ -33,17 +33,17 @@ export class FeedbackService {
   }
 
   saveFeedback(newObj: FeedbackI): Observable<FeedbackDto> {
-    return this.api.post('feedback-clients', JSON.stringify(newObj)).catch(this.handleError);
+    return this.api.postHttpClient('feedback-clients', JSON.stringify(newObj)).catch(this.handleError);
   }
   updateContent(id: string, data: any) {
-    return this.api.put('feedback-clients', data).catch(this.handleError);
+    return this.api.putHttpClient('feedback-clients', data).catch(this.handleError);
   }
 
   deleteObject(data: any) {
-    return this.api.delete('feedback-clients', data).catch(this.handleError);
+    return this.api.deleteHttpClient('feedback-clients', data).catch(this.handleError);
   }
 
-  handleError(error: Response | any) {
+  handleError(error: any) {
     console.log(error.message || error || `We couldn't retrieve your Feedback data!`);
     return Observable.throw(error.message || error);
   }

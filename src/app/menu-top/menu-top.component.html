@@ -40,104 +40,109 @@
 
     <!--<button mat-icon-button [matMenuTriggerFor]="rootMenu"> <mat-icon style="margin-right: 10px;">reorder</mat-icon></button>-->
 
-    <div [routerLink]="['/mainpage']" style="flex: 1 1 auto;">
-      <span style="margin-left: 10px; font-size: 24px">
+    <div [routerLink]="['/mainpage']">
+      <span style="margin-left: 10px; font-size: 36px; font-family: Minion">
         <img src="/assets/images/logo_neuro.png" class="angular-logo">
         Центр нейрохирургии
       </span>
-      <!--<button mat-button> Sevices</button>-->
-
-      <button mat-button [matMenuTriggerFor]="menuAboutDesctop" style="font-size: 24px" class="submenu-fon"><i class="material-icons">home</i> О нас<i class="material-icons">keyboard_arrow_down</i></button>
-      <mat-menu #menuAboutDesctop="matMenu">
-        <button mat-icon-button [routerLink]="['/aboutclinic']"> <i class="material-icons material-icons-sub">work</i> О центре</button>
-        <br>
-        <button mat-icon-button [routerLink]="['/teamclinic']"> <i class="material-icons material-icons-sub">group</i> Коллектив</button>
-        <br>
-       <button mat-icon-button [routerLink]="['/feedbackclients']"> <i class="thumbs outline up icon"> </i> Отзывы</button>
-        <br>
-        <button mat-icon-button [routerLink]="['/pressaaboutus']"><mat-icon class="material-icons-sub">stars</mat-icon><span>СМИ</span></button>
-      </mat-menu>
-
-      <button mat-button [matMenuTriggerFor]="menuPacientDesktop" style="font-size: 24px"><i class="material-icons">accessible</i> Пациенту<i class="material-icons">keyboard_arrow_down</i></button>
-      <mat-menu #menuPacientDesktop="matMenu">
-        <button mat-menu-item [routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация</button>
-        <button mat-menu-item [routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием</button>
-        <button mat-menu-item [routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперационная подгоготовка
-        </button>
-      </mat-menu>
-
-      <!--<i class="file video outline icon"></i>-->
-      <button mat-button  [routerLink]="['/materials']" style="font-size: 24px"><span style="margin-left: 5px"> Статьи</span></button>
-
-      <button mat-icon-button [routerLink]="['/contacts']" style="font-size: 24px"> <i class="marker icon"></i> <span style="margin-left: 5px"> Контакты</span></button>
     </div>
+    <!--<button mat-button> Sevices</button>-->
 
-    <button mat-icon-button [routerLink]="['/login']"><mat-icon>perm_identity</mat-icon><span style="margin-left: 5px"> Вход</span></button>
+    <button mat-button [matMenuTriggerFor]="menuAboutDesctop" style="font-size: 24px"><span><i
+      class="home icon firstmenu-border-left-none"></i> О нас<i class="dropdown icon"></i></span></button>
+    <mat-menu #menuAboutDesctop="matMenu">
+      <button mat-icon-button [routerLink]="['/aboutclinic']"><i class="edit icon"></i> О центре</button>
+      <br>
+      <button mat-icon-button [routerLink]="['/teamclinic']"><i class="users icon"></i> Коллектив</button>
+      <br>
+      <button mat-icon-button [routerLink]="['/feedbackclients']"><i class="thumbs outline up icon"></i> Отзывы</button>
+      <br>
+      <button mat-icon-button [routerLink]="['/pressaaboutus']"><i class="globe icon"></i><span>СМИ</span></button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="menuPacientDesktop" style="font-size: 24px"><span><i
+      class="handicap icon icon firstmenu-border-left-none"></i> Пациенту<i class="dropdown icon"></i></span></button>
+    <mat-menu #menuPacientDesktop="matMenu">
+      <button mat-menu-item [routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация
+      </button>
+      <button mat-menu-item [routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием
+      </button>
+      <button mat-menu-item [routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперационная
+        подгоготовка
+      </button>
+    </mat-menu>
+
+    <button mat-button  [routerLink]="['/materials']" style="font-size: 24px"><span style="margin-left: 5px"> <i class="file video outline icon"></i> Статьи</span></button>
+    <button mat-icon-button [routerLink]="['/contacts']" style="font-size: 24px"> <i class="marker icon"></i>  <span style="margin-left: 5px"> Контакты</span></button>
+
+    <div style="flex: 1 1 auto;"></div>
+
+    <button mat-icon-button [routerLink]="['/login']"><span style="margin-left: 5px"><i class="add user icon" aria-hidden="true"></i> Вход</span></button>
 
   </mat-toolbar>
 </div>
 
-  <div class="ui menu header mainmenu" *ngIf="!getIsItMobile()">
-    <!--<div class="ui container">-->
-      <div class="ui attached stackable right menu mainmenu headermenufont">
+  <!--<div class="ui menu header mainmenu" *ngIf="!getIsItMobile()">-->
+    <!--&lt;!&ndash;<div class="ui container">&ndash;&gt;-->
+      <!--<div class="ui attached stackable right menu mainmenu headermenufont">-->
 
-        <div class="ui container">
+        <!--<div class="ui container">-->
 
-          <div class="item border-left-none">
-            <a [routerLink]="['/mainpage']" aria-label="Main page">
-              <img  src="/assets/images/logo_neuro.png">
+          <!--<div class="item border-left-none">-->
+            <!--<a [routerLink]="['/mainpage']" aria-label="Main page">-->
+              <!--<img  src="/assets/images/logo_neuro.png">-->
 
-            </a>
-            <div class="header item">
-              <a [routerLink]="['/mainpage']" aria-label="Main page" class="headermenufont">
-                <h1>Центр нейрохирургии</h1>
-              </a>
-            </div>
-          </div>
+            <!--</a>-->
+            <!--<div class="header item">-->
+              <!--<a [routerLink]="['/mainpage']" aria-label="Main page" class="headermenufont">-->
+                <!--<h1>Центр нейрохирургии</h1>-->
+              <!--</a>-->
+            <!--</div>-->
+          <!--</div>-->
 
-          <div class="ui plesim dropdown item headermenufont border-left-none">
-            <i class="home icon firstmenu-border-left-none"></i>О нас
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item" [routerLink]="['/aboutclinic']"><i class="edit icon"></i>О центре</a>
-              <a class="item" [routerLink]="['/teamclinic']"><i class="users icon"></i> Коллектив</a>
-              <a class="item" [routerLink]="['/feedbackclients']"><i class="thumbs outline up icon"></i> Отзывы клиентов</a>
-              <a class="item" [routerLink]="['/pressaaboutus']"><i class="globe icon"></i> СМИ</a>
-            </div>
-          </div>
+          <!--<div class="ui plesim dropdown item headermenufont border-left-none">-->
+            <!--<i class="home icon firstmenu-border-left-none"></i>О нас-->
+            <!--<i class="dropdown icon"></i>-->
+            <!--<div class="menu">-->
+              <!--<a class="item" [routerLink]="['/aboutclinic']"><i class="edit icon"></i>О центре</a>-->
+              <!--<a class="item" [routerLink]="['/teamclinic']"><i class="users icon"></i> Коллектив</a>-->
+              <!--<a class="item" [routerLink]="['/feedbackclients']"><i class="thumbs outline up icon"></i> Отзывы клиентов</a>-->
+              <!--<a class="item" [routerLink]="['/pressaaboutus']"><i class="globe icon"></i> СМИ</a>-->
+            <!--</div>-->
+          <!--</div>-->
 
-          <div class="ui simple dropdown item headermenufont border-left-none">
-            <i class="handicap icon icon firstmenu-border-left-none"></i> Пациенту
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item"[routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация</a>
-              <a class="item"[routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием</a>
-              <a class="item"[routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперационная подгоготовка </a>
-            </div>
-          </div>
+          <!--<div class="ui simple dropdown item headermenufont border-left-none">-->
+            <!--<i class="handicap icon icon firstmenu-border-left-none"></i> Пациенту-->
+            <!--<i class="dropdown icon"></i>-->
+            <!--<div class="menu">-->
+              <!--<a class="item"[routerLink]="['/onlineconsultation']"><i class="doctor icon"></i> Онлайн консультация</a>-->
+              <!--<a class="item"[routerLink]="['/offlineconsultation']"><i class="hospital icon"></i> Запись на прием</a>-->
+              <!--<a class="item"[routerLink]="['/preoperativepreparation']"><i class="shower icon"></i> Передоперационная подгоготовка </a>-->
+            <!--</div>-->
+          <!--</div>-->
 
-          <a class="item headermenufont" [routerLink]="['/materials']">
-            <i class="file video outline icon"></i> Статьи
-          </a>
+          <!--<a class="item headermenufont" [routerLink]="['/materials']">-->
+            <!--<i class="file video outline icon"></i> Статьи-->
+          <!--</a>-->
 
-          <a class="item headermenufont" [routerLink]="['/contacts']">
-            <i class="marker icon"></i> Контакты
-          </a>
+          <!--<a class="item headermenufont" [routerLink]="['/contacts']">-->
+            <!--<i class="marker icon"></i> Контакты-->
+          <!--</a>-->
 
-        </div>
+        <!--</div>-->
 
-        <div class="item right menu headermenufont">
-          <button [routerLink]="['/login']" class="ui basic button">
-            <a class="headermenufont"> <i class="add user icon" aria-hidden="true"></i>
-            Вход
-            </a>
-          </button>
-        </div>
+        <!--<div class="item right menu headermenufont">-->
+          <!--<button [routerLink]="['/login']" class="ui basic button">-->
+            <!--<a class="headermenufont"> <i class="add user icon" aria-hidden="true"></i>-->
+            <!--Вход-->
+            <!--</a>-->
+          <!--</button>-->
+        <!--</div>-->
 
-      </div>
+      <!--</div>-->
 
-    <!--</div>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-  </div>
+  <!--</div>-->
 
 

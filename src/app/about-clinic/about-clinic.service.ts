@@ -1,8 +1,9 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {ApiService} from '../shared/api.service';
-import {Http} from '@angular/http';
 import {ContentService} from '../shared/content.service';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 import {ContentEditI} from '../presa-aboutus/content-edit/content-edit-i';
 
 @Injectable()
@@ -10,15 +11,15 @@ export class AboutClinicService {
 
   public needUpdateParent: EventEmitter<any>;
 
-  constructor(private api: ApiService, private http: Http, public cs: ContentService) {
+  constructor(private api: ApiService, public cs: ContentService) {
     this.needUpdateParent = new EventEmitter();
   }
 
   deleteObject(data: any) {
-    return this.api.delete('about-clinic', data).catch(this.handleError);
+    return this.api.deleteHttpClient('about-clinic', data).catch(this.handleError);
   }
 
-  handleError(error: Response | any) {
+  handleError(error: any) {
     // could be something more sofisticated
     console.log(error.message || error || `There was a problem with our AboutClinicService!`);
     // throw an application level error
@@ -31,14 +32,15 @@ export class AboutClinicService {
 
   getData(): Observable<ContentEditI[]>  {
 
-    const pressadata$ = this.api.get('about-clinic').map((data: any) => {
+    // let pressadata: any;
+    const pressadata = this.api.getHttpClient<ContentEditI[]>('about-clinic').map((data: any) => {
       return data.map(this.cs.toContentEditIObject);
     } );
-    return pressadata$;
+    return pressadata;
   }
 
   saveNewAboutClinic(newObj: ContentEditI): Observable<ContentEditI> {
-    return this.api.post('about-clinic', newObj).catch(this.handleError);
+    return this.api.postHttpClient('about-clinic', newObj).catch(this.handleError);
   }
 
 }

@@ -6,14 +6,13 @@ import 'rxjs/add/observable/throw';
 import {PressaAboutUs} from '../dtd/pressa-about-us.model';
 import {PressaAboutUsI} from '../dtd/pressa-about-us';
 import {ApiService} from '../shared/api.service';
-import {Http, Headers, Request, RequestOptions, RequestMethod, Response, RequestOptionsArgs} from '@angular/http';
 
 @Injectable()
 export class PressaServiceService {
 
   public needUpdateParent: EventEmitter<any>;
 
-  constructor(private api: ApiService, private http: Http) {
+  constructor(private api: ApiService) {
     this.needUpdateParent = new EventEmitter();
   }
  // PressaAboutUs[]
@@ -22,13 +21,7 @@ export class PressaServiceService {
    const searchParam = new URLSearchParams();
    // searchParam.set('foo', 'moo');
    searchParam.set('limit', '25');
-
-   // const people$ = this.http.get('api/presa-aboutus', {search: searchParam}).map((response: Response) => {
-   //    console.log('Response ', response);
-   //    return this.mapPersons(response);
-   // } ).catch(this.handleError);
-
-   const pressadata$ = this.api.get('presa-aboutus').map((data: any) => {
+   const pressadata$ = this.api.getHttpClient<PressaAboutUs[]>('presa-aboutus').map((data: any) => {
      return data.map(this.toPressaObject);
    } );
 
@@ -38,26 +31,14 @@ export class PressaServiceService {
   }
 
   saveNewPressaAnoutUs(newObj: PressaAboutUsI): Observable<PressaAboutUs> {
-
-    // const headersRequest = new Headers();
-    // headersRequest.append('Content-Type', 'application/json');
-    //
-    // const requestOptions = new RequestOptions({headers: headersRequest});
-    // return this.http.post('/api/presa-aboutus', newObj, requestOptions)
-    //   .map(this.extractData).catch(this.handleError);
-
-    return this.api.post('presa-aboutus', newObj).catch(this.handleError);
+    return this.api.postHttpClient('presa-aboutus', newObj).catch(this.handleError);
   }
   updateContent(id: string, data: any) {
-    return this.api.put('presa-aboutus', data).catch(this.handleError);
+    return this.api.putHttpClient('presa-aboutus', data).catch(this.handleError);
   }
 
   deleteObject(data: any) {
-    return this.api.delete('presa-aboutus', data).catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    return res.json() || {};
+    return this.api.deleteHttpClient('presa-aboutus', data).catch(this.handleError);
   }
 
   toPressaObject(item: any): PressaAboutUs {
@@ -74,7 +55,7 @@ export class PressaServiceService {
   }
 
   // this could also be a private method of the component class
-  handleError(error: Response | any) {
+  handleError(error: any) {
     // log error
     // could be something more sofisticated
    console.log(error.message || error || `There was a problem with our hyperdrive device and we couldn't retrieve your data!`);

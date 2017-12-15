@@ -1,23 +1,78 @@
 
 <div class="ui raised very padded text container segment">
-  <mat-toolbar color="primary">
 
-    <button mat-button> Today <mat-icon svgIcon="thumbs-up"></mat-icon></button>
-    <button mat-button> Tomorrow</button>
+  <div style="margin: auto; text-align: center;">
+    <button mat-raised-button color="primary" (click)="showToday()" style="display: inline-block; ">Today</button>
+    <button mat-raised-button color="primary" (click)="showTomorrow()" style="display: inline-block; ">Tomorrow</button>
+
+    <mat-form-field style="display: inline-block; ">
+      <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi="true" #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div style="margin: auto; text-align: center;"> <b>Choosed date: #{{ selectDateForView | date:'shortDate' }}</b></div>
+
+  <br>
+
+  <div class="button-row" style="margin: auto;">
+    <!--<div style="margin: auto;">-->
+      <!--<mat-form-field>-->
+        <!--<input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" placeholder="Choose a date">-->
+        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker touchUi="true" #picker></mat-datepicker>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+  </div>
+
+  <!--<mat-toolbar color="primary" >-->
+
+    <!--<div style="text-align: center; margin: auto;">-->
+      <!--<button mat-button>Today<mat-icon svgIcon="thumbs-up"></mat-icon></button>-->
+      <!--<button mat-button>Tomorrow</button>-->
+    <!--</div>-->
 
 
+  <!--</mat-toolbar>-->
 
-  </mat-toolbar>
+  <!--<mat-form-field>-->
+    <!--<input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" placeholder="Choose a date">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker touchUi="true" #picker></mat-datepicker>-->
+  <!--</mat-form-field>-->
 
-  <mat-form-field class="example-events">
-    <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker touchUi="true" #picker></mat-datepicker>
-  </mat-form-field>
-
+  <!--<mat-card>-->
+    <!--<button mat-button>All</button>-->
+    <!--<button mat-raised-button>Of</button>-->
+    <!--<button mat-raised-button color="primary">The</button>-->
+    <!--<button mat-raised-button color="accent">Buttons</button>-->
+  <!--</mat-card>-->
 
 </div>
 
+<div class="ui raised very padded text container segment">
+
+  <!--<app-offline-consultation-list></app-offline-consultation-list>-->
+
+  <!--<div *ngFor="let curOfflineConsultationObject of scheduleOfDay">-->
+    <!--<app-offline-consultation-time-view [offlineConsultationObject]="curOfflineConsultationObject"></app-offline-consultation-time-view>-->
+  <!--</div>-->
+
+  <!--<div *ngIf="scheduleOfDay">-->
+    <!--<div *ngFor="let curOfflineConsultationObject of scheduleOfDay.entries()">-->
+      <!--&lt;!&ndash;&lt;!&ndash;<a> {{curOfflineConsultationObject[1] | json}} </a>&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<app-offline-consultation-time-view [curOfflineConsultationObject[1]]="curOfflineConsultationObject"></app-offline-consultation-time-view>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div *ngFor="let key of scheduleOfDay.keys(); let num = index">{{key}}:{{num}}}</div>-->
+
+  <div>
+    <app-offline-consultation-list [offlineConsultationMap]="scheduleOfDay"></app-offline-consultation-list>
+  </div>
+
+</div>
 
 <div class="ui raised very padded text container segment">
     <div class="field-items">

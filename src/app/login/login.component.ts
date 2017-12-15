@@ -36,10 +36,19 @@ export class LoginComponent implements OnInit {
       username: this.myForm.get('username').value,
       password: this.myForm.get('password').value
     };
-    this.api.post('authenticate', payload).subscribe( data => {
+    this.api.postHttpClient('authenticate', payload).subscribe( data => {
         console.log('data authenticate: ');
         console.log(data);
-        this.auth.setToken(data.token);
+        let token = '';
+        Object.getOwnPropertyNames(data).forEach(
+          function (val, idx, array) {
+            // console.log(val + ' -> ' + data[val]);
+            if (val.trim() === 'token') {
+              token = data[val];
+            }
+          }
+        );
+        this.auth.setToken(token);
         this.router.navigate(['/mainpage']);
       },
       error => this.errorMessage = <any>error);

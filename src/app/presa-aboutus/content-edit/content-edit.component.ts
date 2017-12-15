@@ -146,7 +146,7 @@ import {ContactsOurService} from '../../contacts-our/contacts-our.service';
             console.log('addedItem: ');
             console.log(addedItem);
             this.addedItem.emit(addedItem);
-            this.acs.needUpdateParent.emit(addedItem);
+            this.pps.needUpdateParent.emit(addedItem);
           },
           error => this.errorMessage = <any>error);
       } else if (this.typeContent === 'materials') {

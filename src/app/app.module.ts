@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +47,8 @@ import { AnswerViewComponent } from './online-consultation/answer-view/answer-vi
 import {OnlineConsultationService} from './online-consultation/online-consultation.service';
 import { QuestionsEditComponent } from './online-consultation/questions-edit/questions-edit.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
@@ -54,6 +56,9 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 
 import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+import { OfflineConsultationListComponent } from './offline-consultation/offline-consultation-list/offline-consultation-list.component';
+import { OfflineConsultationTimeViewComponent } from './offline-consultation/offline-consultation-time-view/offline-consultation-time-view.component';
+import { OfflineConsultationService } from './offline-consultation/offline-consultation.service';
 
 registerLocaleData(localeRu);
 
@@ -69,7 +74,8 @@ export const mapKindsOfMedia: Map< string, string> = new Map< string, string>(
   ]
 );
 export const openUrlGet: string[] = ['presa-aboutus', 'online-consultation',
-  'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic', 'about-clinic', 'contacts-our'];
+  'materials', 'feedback-clients', 'preoperative-preparation', 'team-clinic',
+  'about-clinic', 'contacts-our', 'schedule', 'offline-consultation'];
 
 export const openUrlPost: string[] = ['feedback-clients', 'xxx', 'feedback-clients'];
 
@@ -104,13 +110,16 @@ export const openUrlPost: string[] = ['feedback-clients', 'xxx', 'feedback-clien
     QuestionsListComponent,
     QuestionsViewComponent,
     AnswerViewComponent,
-    QuestionsEditComponent
+    QuestionsEditComponent,
+    OfflineConsultationListComponent,
+    OfflineConsultationTimeViewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    // HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     PressaModuleModule,
     BrowserAnimationsModule,
@@ -132,7 +141,8 @@ export const openUrlPost: string[] = ['feedback-clients', 'xxx', 'feedback-clien
     { provide: PreoperativePreparationService, useClass: PreoperativePreparationService},
     { provide: MaterialsService, useClass: MaterialsService},
     { provide: ContactsOurService, useClass: ContactsOurService},
-    { provide: OnlineConsultationService, useClass: OnlineConsultationService}
+    { provide: OnlineConsultationService, useClass: OnlineConsultationService},
+    { provide: OfflineConsultationService, useClass: OfflineConsultationService}
     ],
   bootstrap: [AppComponent]
 })

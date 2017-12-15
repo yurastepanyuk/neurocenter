@@ -44,7 +44,7 @@ export class PressaCurObjectComponent implements OnInit {
     this.isItEditing = false;
   }
   initObject(): void {
-    console.log('initObject: ', this.pressaObject);
+    console.log('initObject: ', this._pressaObject);
 
     if (this._pressaObject.typecontent === 'imageFromGoogleDrive'
       || this._pressaObject.typecontent === 'videoFromYouTube'

@@ -1,0 +1,66 @@
+[
+  {
+    "day": 0,
+    "globalOption": true,
+    "highDsay": ["2017-12-25T14:24:41.688Z", "2018-01-01T14:24:41.688Z", "2018-01-02T14:24:41.688Z", "2018-01-07T14:24:41.688Z", "2018-03-08T14:24:41.688Z"],
+    "offDays": [6,7],
+    "minPerPerson": 30
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 1,
+    "pause": {"startHour": 13, "startMin": 0,"finishHour": 14,"finishMin": 0},
+    "start": {"hour": 12, "min": 0},
+    "finish": {"hour": 15, "min": 30},
+    "dayOff": false
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 2,
+    "pause": {"startHour": 13, "startMin": 0,"finishHour": 14,"finishMin": 0},
+    "start": {"hour": 9, "min": 30},
+    "finish": {"hour": 15, "min": 30},
+    "dayOff": false
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 3,
+    "pause": {"startHour": 13, "startMin": 0,"finishHour": 14,"finishMin": 0},
+    "start": {"hour": 9, "min": 30},
+    "finish": {"hour": 15, "min": 30},
+    "dayOff": false
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 4,
+    "pause": {"startHour": 13, "startMin": 0,"finishHour": 14,"finishMin": 0},
+    "start": {"hour": 9, "min": 30},
+    "finish": {"hour": 15, "min": 30},
+    "dayOff": false
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 5,
+    "pause": {"startHour": 13, "startMin": 0,"finishHour": 14,"finishMin": 0},
+    "start": {"hour": 12, "min": 0},
+    "finish": {"hour": 15, "min": 30},
+    "dayOff": false
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 6,
+    "pause": {"startHour": 0, "startMin": 0,"finishHour": 0,"finishMin": 0},
+    "start": {"hour": 0, "min": 0},
+    "finish": {"hour": 0, "min": 0},
+    "dayOff": true
+  },
+  {
+    "doctor": {"username": "admin", "userview": "Administrator"},
+    "day": 7,
+    "pause": {"startHour": 0, "startMin": 0,"finishHour": 0,"finishMin": 0},
+    "start": {"hour": 0, "min": 0},
+    "finish": {"hour": 0, "min": 0},
+    "dayOff": true
+  }
+]
+

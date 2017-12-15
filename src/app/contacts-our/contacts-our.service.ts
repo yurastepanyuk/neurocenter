@@ -13,10 +13,10 @@ export class ContactsOurService {
   }
 
   deleteObject(data: any) {
-    return this.api.delete('contacts-our', data).catch(this.handleError);
+    return this.api.deleteHttpClient('contacts-our', data).catch(this.handleError);
   }
 
-  handleError(error: Response | any) {
+  handleError(error: any) {
     // could be something more sofisticated
     console.log(error.message || error || `There was a problem with our ContactsOurService!`);
     // throw an application level error
@@ -29,14 +29,14 @@ export class ContactsOurService {
 
   getData(): Observable<ContentEditI[]>  {
 
-    const contactsOursdata$ = this.api.get('contacts-our').map((data: any) => {
+    const contactsOursdata = this.api.getHttpClient<ContentEditI[]>('contacts-our').map((data: any) => {
       return data.map(this.cs.toContentEditIObject);
     } );
-    return contactsOursdata$;
+    return contactsOursdata;
   }
 
   saveNewContactsOur(newObj: ContentEditI): Observable<ContentEditI> {
-    return this.api.post('contacts-our', newObj).catch(this.handleError);
+    return this.api.postHttpClient('contacts-our', newObj).catch(this.handleError);
   }
 
 }

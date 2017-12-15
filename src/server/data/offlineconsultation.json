@@ -1,0 +1,31 @@
+[
+  {
+    "user": {"username": "user", "userview": "User U. U."},
+    "dateCreated": "2017-12-01T14:24:41.688Z",
+    "dateConsultation": "2017-12-05T14:24:41.688Z",
+    "timeConsultation": "9:30",
+    "description": "Болит нога"
+  },
+  {
+    "user": {"username": "admin", "userview": "Administrator"},
+    "dateCreated": "2017-12-02T12:24:41.688Z",
+    "dateConsultation": "2017-12-05T14:24:41.688Z",
+    "timeConsultation": "10:30",
+    "description": "Болит рука"
+  },
+  {
+    "user": {"username": "user1", "userview": "User1 U. U."},
+    "dateCreated": "2017-12-02T12:24:41.688Z",
+    "dateConsultation": "2017-12-01T14:24:41.688Z",
+    "timeConsultation": "11:30",
+    "description": "Болит спина"
+  },
+  {
+    "user": {"username": "user2", "userview": "User2 U. U."},
+    "dateCreated": "2017-11-30T12:24:41.688Z",
+    "dateConsultation": "2017-12-05T14:24:41.688Z",
+    "timeConsultation": "14:30",
+    "description": "Болит ухо"
+  }
+]
+
